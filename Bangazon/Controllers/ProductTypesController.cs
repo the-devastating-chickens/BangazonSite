@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Bangazon.Data;
 using Bangazon.Models;
-using Bangazon.Models.ProductTypeViewModels;
+
 
 namespace Bangazon.Controllers
 {
@@ -46,7 +46,11 @@ namespace Bangazon.Controllers
 
             // Setting the Products property by selecting the products with productTypeId == id (parameter)
             productType.Products = await _context.Product.Where(p => p.ProductTypeId == id)
-                                                .ToListAsync();           
+                                                .ToListAsync();
+
+            productType.Quantity = productType.Products.Count;
+
+
 
             return View(productType);
         }
