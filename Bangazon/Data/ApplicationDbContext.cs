@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bangazon.Data {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
-        public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options) : base (options) { }
+namespace Bangazon.Data
+{
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<ProductType> ProductType { get; set; }
@@ -16,34 +18,35 @@ namespace Bangazon.Data {
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderProduct> OrderProduct { get; set; }
 
-        protected override void OnModelCreating (ModelBuilder modelBuilder) {
-            base.OnModelCreating (modelBuilder);
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
-            modelBuilder.Entity<Order> ()
-                .Property (b => b.DateCreated)
-                .HasDefaultValueSql ("GETDATE()");
+            modelBuilder.Entity<Order>()
+                .Property(b => b.DateCreated)
+                .HasDefaultValueSql("GETDATE()");
 
             // Restrict deletion of related order when OrderProducts entry is removed
-            modelBuilder.Entity<Order> ()
-                .HasMany (o => o.OrderProducts)
-                .WithOne (l => l.Order)
-                .OnDelete (DeleteBehavior.Restrict);
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.OrderProducts)
+                .WithOne(l => l.Order)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Product> ()
-                .Property (b => b.DateCreated)
-                .HasDefaultValueSql ("GETDATE()");
+            modelBuilder.Entity<Product>()
+                .Property(b => b.DateCreated)
+                .HasDefaultValueSql("GETDATE()");
 
             // Restrict deletion of related product when OrderProducts entry is removed
-            modelBuilder.Entity<Product> ()
-                .HasMany (o => o.OrderProducts)
-                .WithOne (l => l.Product)
-                .OnDelete (DeleteBehavior.Restrict);
+            modelBuilder.Entity<Product>()
+                .HasMany(o => o.OrderProducts)
+                .WithOne(l => l.Product)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<PaymentType> ()
-                .Property (b => b.DateCreated)
-                .HasDefaultValueSql ("GETDATE()");
+            modelBuilder.Entity<PaymentType>()
+                .Property(b => b.DateCreated)
+                .HasDefaultValueSql("GETDATE()");
 
             ApplicationUser user = new ApplicationUser
             {
@@ -63,7 +66,7 @@ namespace Bangazon.Data {
             user.PasswordHash = passwordHash.HashPassword(user, "Admin8*");
             modelBuilder.Entity<ApplicationUser>().HasData(user);
 
-            modelBuilder.Entity<PaymentType> ().HasData (
+            modelBuilder.Entity<PaymentType>().HasData(
                 new PaymentType()
                 {
                     PaymentTypeId = 1,
@@ -77,6 +80,27 @@ namespace Bangazon.Data {
                     UserId = user.Id,
                     Description = "Discover",
                     AccountNumber = "4102948572991"
+                },
+                new PaymentType()
+                {
+                    PaymentTypeId = 3,
+                    UserId = user.Id,
+                    Description = "Visa",
+                    AccountNumber = "4102948571111"
+                },
+                new PaymentType()
+                {
+                    PaymentTypeId = 4,
+                    UserId = user.Id,
+                    Description = "MasterCard",
+                    AccountNumber = "4102948572222"
+                },
+                new PaymentType()
+                {
+                    PaymentTypeId = 5,
+                    UserId = user.Id,
+                    Description = "Diners Club",
+                    AccountNumber = "4102948573333"
                 }
             );
 
@@ -186,32 +210,66 @@ namespace Bangazon.Data {
                 }
             );
 
-            modelBuilder.Entity<Order> ().HasData (
+            modelBuilder.Entity<Order>().HasData(
                 new Order()
                 {
                     OrderId = 1,
+                    UserId = user.Id,
+                    PaymentTypeId = 1
+                },
+                new Order()
+                {
+                    OrderId = 2,
+                    UserId = user.Id,
+                    PaymentTypeId = 2
+                },
+                new Order()
+                {
+                    OrderId = 3,
+                    UserId = user.Id,
+                    PaymentTypeId = 3
+                },
+                new Order()
+                {
+                    OrderId = 4,
                     UserId = user.Id,
                     PaymentTypeId = null
                 }
             );
 
-            modelBuilder.Entity<OrderProduct> ().HasData (
+            modelBuilder.Entity<OrderProduct>().HasData(
                 new OrderProduct()
                 {
                     OrderProductId = 1,
                     OrderId = 1,
                     ProductId = 1
-                }
-            );
-
-            modelBuilder.Entity<OrderProduct> ().HasData (
+                },
                 new OrderProduct()
                 {
                     OrderProductId = 2,
                     OrderId = 1,
                     ProductId = 2
+                },
+                new OrderProduct()
+                {
+                    OrderProductId = 3,
+                    OrderId = 2,
+                    ProductId = 3
+                },
+                new OrderProduct()
+                {
+                    OrderProductId = 4,
+                    OrderId = 3,
+                    ProductId = 4
+                },
+                new OrderProduct()
+                {
+                    OrderProductId = 5,
+                    OrderId = 1,
+                    ProductId = 5
                 }
             );
+
         }
     }
 }
