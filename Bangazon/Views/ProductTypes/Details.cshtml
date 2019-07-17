@@ -1,4 +1,4 @@
-﻿@model Bangazon.Models.ProductTypeViewModels.ProductTypeDetailsViewModel
+﻿@model Bangazon.Models.ProductType
 
 @{
     ViewData["Title"] = "Details";
@@ -11,10 +11,10 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductType.Label)
+            @Html.DisplayNameFor(model => model.Label)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ProductType.Label)
+            @Html.DisplayFor(model => model.Label)
         </dd>
     </dl>
 </div>
@@ -48,6 +48,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.ProductType.ProductTypeId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.ProductTypeId">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
