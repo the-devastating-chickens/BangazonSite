@@ -20,12 +20,15 @@ namespace Bangazon.Controllers
             _context = context;
         }
 
+
         // GET: ProductTypes
         public async Task<IActionResult> Index()
         {
             return View(await _context.ProductType.ToListAsync());
         }
 
+        // Chris Morgan
+        // The details method accepts the id of the ProductType the user is trying to see details about. The details view requires a view model in order to display a list of all products that belong to the category.
         // GET: ProductTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -41,6 +44,7 @@ namespace Bangazon.Controllers
                 return NotFound();
             }
 
+            // View model with Products of the product type selected, and the product type selected is set to the productType property
             ProductTypeDetailsViewModel viewModel = new ProductTypeDetailsViewModel
             {
                 Products = await _context.Product.Where(p => p.ProductTypeId == id)
