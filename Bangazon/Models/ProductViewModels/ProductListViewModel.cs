@@ -34,8 +34,16 @@ namespace Bangazon.Models.ProductViewModels
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT
+                        SELECT Id,
+                               Title,
+                               FROM Product
 ";
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    Products = new List<Product>();
+                    while (reader.Read())
+                    {
+                        Id = 
+                    }
                 }
             }
         }
