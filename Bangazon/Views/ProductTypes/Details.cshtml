@@ -1,0 +1,53 @@
+﻿@model Bangazon.Models.ProductTypeViewModels.ProductTypeDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>ProductType</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductType.Label)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProductType.Label)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <h4>Products of this type</h4>
+    <hr />
+    <dl class="row">
+        @foreach (var product in Model.Products)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => product.Title)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => product.Title)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => product.Quantity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => product.Quantity)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => product.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => product.Price)
+                <hr/>
+            </dd>
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ProductType.ProductTypeId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
