@@ -17,13 +17,15 @@ namespace Bangazon.Models
         public DateTime DateCreated { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(255, ErrorMessage = "Please shorten the product title to 255 characters")]
+        // Billy Mitchell: This Regular Expression is used to forbid users from usings these !@#$%^&*() characters. Use allow: [characters in here] or not allow [^characters in here]
+        [RegularExpression(@"^[^!@#$%^&*()]+$", ErrorMessage = "The characters !@#$%^&*() are not allowed")]
         public string Description { get; set; }
 
         [Required]
+        [StringLength(55, ErrorMessage = "Please shorten the product title to 55 characters")]
         // Billy Mitchell: This Regular Expression is used to forbid users from usings these !@#$%^&*() characters. Use allow: [characters in here] or not allow [^characters in here]
         [RegularExpression(@"^[^!@#$%^&*()]+$", ErrorMessage = "The characters !@#$%^&*() are not allowed")]
-        [StringLength(55, ErrorMessage = "Please shorten the product title to 55 characters")]
         public string Title { get; set; }
 
         [Required]
