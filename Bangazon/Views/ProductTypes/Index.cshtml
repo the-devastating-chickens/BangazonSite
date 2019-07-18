@@ -4,15 +4,9 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Product Categories</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
-<div>
-    <h4>
-        Product Types
-    </h4>
+<div>    
     <div>
         @foreach (var item in Model.GroupedProducts)
         {
@@ -24,10 +18,8 @@
                 <ul>
                     @foreach (var product in item.Products)
                     {
-                    <li>
-                        
+                    <li>                        
                         <a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">@($"{product.Title}")</a>
-
                     </li>
                     }
                 </ul>

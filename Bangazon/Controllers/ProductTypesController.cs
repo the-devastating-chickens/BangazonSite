@@ -32,10 +32,10 @@ namespace Bangazon.Controllers
             // Build list of Product instances for display in view
             // LINQ is awesome
             model.GroupedProducts = await (
-                from t in _context.ProductType
+                from pt in _context.ProductType
                 join p in _context.Product
-                on t.ProductTypeId equals p.ProductTypeId
-                group new { t, p } by new { t.ProductTypeId, t.Label } into grouped
+                on pt equals p.ProductType
+                group new { pt, p } by new { pt.ProductTypeId, pt.Label } into grouped
                 select new GroupedProducts
                 {
                     TypeId = grouped.Key.ProductTypeId,
