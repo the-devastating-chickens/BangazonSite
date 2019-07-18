@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Bangazon.Data;
 using Bangazon.Models;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bangazon.Controllers
 {
+    [Authorize]
     public class ProductTypesController : Controller
     {
         private readonly ApplicationDbContext _context;
