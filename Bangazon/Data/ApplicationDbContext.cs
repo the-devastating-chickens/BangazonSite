@@ -207,7 +207,158 @@ namespace Bangazon.Data
                     Title = "Hammer",
                     Quantity = 32,
                     Price = 22.69
+                },
+                new Product()
+                {
+                    ProductId = 7,
+                    ProductTypeId = 3,
+                    UserId = user.Id,
+                    Description = "It is heavy and drills holes into things",
+                    Title = "Drill Press",
+                    Quantity = 3,
+                    Price = 430.74
+                },
+                new Product()
+                {
+                    ProductId = 8,
+                    ProductTypeId = 2,
+                    UserId = user.Id,
+                    Description = "It keeps food cold",
+                    Title = "Refridgerator",
+                    Quantity = 40,
+                    Price = 723.22
+                },
+                new Product()
+                {
+                    ProductId = 9,
+                    ProductTypeId = 4,
+                    UserId = user.Id,
+                    Description = "It does words",
+                    Title = "Scrabble",
+                    Quantity = 320,
+                    Price = 19.99
+                },
+                new Product()
+                {
+                    ProductId = 10,
+                    ProductTypeId = 5,
+                    UserId = user.Id,
+                    Description = "It plays records",
+                    Title = "Record Player",
+                    Quantity = 15,
+                    Price = 32.42
+                },
+                new Product()
+                {
+                    ProductId = 11,
+                    ProductTypeId = 6,
+                    UserId = user.Id,
+                    Description = "It gives you health",
+                    Title = "Vitamin C",
+                    Quantity = 32,
+                    Price = 22.69
+                },
+                new Product()
+                {
+                    ProductId = 12,
+                    ProductTypeId = 7,
+                    UserId = user.Id,
+                    Description = "It provides shelter",
+                    Title = "Tent",
+                    Quantity = 12,
+                    Price = 45.55
+                },
+                new Product()
+                {
+                    ProductId = 13,
+                    ProductTypeId = 8,
+                    UserId = user.Id,
+                    Description = "It moisturizes",
+                    Title = "Lotion",
+                    Quantity = 52,
+                    Price = 7.99
+                },
+                new Product()
+                {
+                    ProductId = 14,
+                    ProductTypeId = 9,
+                    UserId = user.Id,
+                    Description = "It looks bad but feels comfortable",
+                    Title = "Crocs",
+                    Quantity = 500,
+                    Price = 25.43
+                },
+                new Product()
+                {
+                    ProductId = 15,
+                    ProductTypeId = 10,
+                    UserId = user.Id,
+                    Description = "Choo choo!",
+                    Title = "Train",
+                    Quantity = 1,
+                    Price = 3.75
+                },
+                new Product()
+                {
+                    ProductId = 16,
+                    ProductTypeId = 3,
+                    UserId = user.Id,
+                    Description = "It puts things together",
+                    Title = "Nails",
+                    Quantity = 325,
+                    Price = .75
+                },
+                new Product()
+                {
+                    ProductId = 17,
+                    ProductTypeId = 3,
+                    UserId = user.Id,
+                    Description = "It puts things together",
+                    Title = "Screws",
+                    Quantity = 32,
+                    Price = .25
+                },
+                new Product()
+                {
+                    ProductId = 18,
+                    ProductTypeId = 3,
+                    UserId = user.Id,
+                    Description = "It puts things together",
+                    Title = "Washers",
+                    Quantity = 320,
+                    Price = .05
+                },
+                new Product()
+                {
+                    ProductId = 19,
+                    ProductTypeId = 3,
+                    UserId = user.Id,
+                    Description = "It puts things together",
+                    Title = "Bolts",
+                    Quantity = 3200,
+                    Price = .69
+                },
+                new Product()
+                {
+                    ProductId = 20,
+                    ProductTypeId = 3,
+                    UserId = user.Id,
+                    Description = "It puts things together",
+                    Title = "Lumber",
+                    Quantity = 32,
+                    Price = 1.00
+                },
+                new Product()
+                {
+                    ProductId = 21,
+                    ProductTypeId = 9,
+                    UserId = user.Id,
+                    Description = "You can run in them!",
+                    Title = "Sneakers",
+                    Quantity = 2,
+                    Price = 22.69
                 }
+
             );
 
             modelBuilder.Entity<Order>().HasData(
