@@ -41,6 +41,14 @@ namespace Bangazon.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        // GET: My Products
+        public async Task<IActionResult> MyIndex()
+        {
+            var currentUser = await GetCurrentUserAsync();
+            var applicationDbContext = _context.Product.Where(p => p.UserId == currentUser.Id).Include(p => p.ProductType).Include(p => p.User);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -77,7 +85,7 @@ namespace Bangazon.Controllers
             List<SelectListItem> productTypeItems = new SelectList(_context.ProductType, "ProductTypeId", "Label").ToList();
             productTypeItems.Insert(0, (new SelectListItem { Text = "", Value = null }));
             ViewData["ProductTypeId"] = productTypeItems;
-            
+
             return View();
         }
 
@@ -115,6 +123,13 @@ namespace Bangazon.Controllers
             {
                 return NotFound();
             }
+
+            var currentUser = await GetCurrentUserAsync();
+            if (currentUser.Id != product.UserId)
+            {
+                return NotFound();
+            }
+
             ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label", product.ProductTypeId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", product.UserId);
             return View(product);
@@ -127,6 +142,7 @@ namespace Bangazon.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ProductId,DateCreated,Description,Title,Price,Quantity,UserId,City,ImagePath,Active,ProductTypeId")] Product product)
         {
+
             if (id != product.ProductId)
             {
                 return NotFound();
@@ -150,7 +166,7 @@ namespace Bangazon.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(MyIndex));
             }
             ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label", product.ProductTypeId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", product.UserId);
@@ -160,15 +176,23 @@ namespace Bangazon.Controllers
         // GET: Products/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var currentUser = await GetCurrentUserAsync();
+            var product = await _context.Product
+                            .Include(p => p.ProductType)
+                            .Include(p => p.User)
+                            .FirstOrDefaultAsync(m => m.ProductId == id);
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .Include(p => p.ProductType)
-                .Include(p => p.User)
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+            if (currentUser.Id != product.UserId)
+            {
+                return NotFound();
+            }
+
+
             if (product == null)
             {
                 return NotFound();
@@ -185,7 +209,7 @@ namespace Bangazon.Controllers
             var product = await _context.Product.FindAsync(id);
             _context.Product.Remove(product);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(MyIndex));
         }
 
         private bool ProductExists(int id)

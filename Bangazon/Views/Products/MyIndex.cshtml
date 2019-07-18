@@ -4,14 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Products</h1>
+<h1>My Products</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 
 @* If model does not contain any products then displaying  "No results found"
-    *@
+*@
 @if (Model.Count() is 0)
 {
     <div>
@@ -48,9 +48,6 @@ else
                     @Html.DisplayNameFor(model => model.Active)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.User)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.ProductType)
                 </th>
                 <th></th>
@@ -85,13 +82,12 @@ else
                         @Html.DisplayFor(modelItem => item.Active)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.User.Id)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.ProductType.Label)
                     </td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
                     </td>
                 </tr>
             }
