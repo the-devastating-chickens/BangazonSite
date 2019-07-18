@@ -45,12 +45,11 @@ namespace Bangazon.Controllers
             }
 
             // Setting the Products property by selecting the products with productTypeId == id (parameter)
+
             productType.Products = await _context.Product.Where(p => p.ProductTypeId == id)
                                                 .ToListAsync();
 
-            productType.Quantity = productType.Products.Count;
-
-
+            
 
             return View(productType);
         }
