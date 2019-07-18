@@ -10,14 +10,55 @@
     <h4>ProductType</h4>
     <hr />
     <dl class="row">
+<<<<<<< HEAD
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Label)
         </dt>
         <dd class = "col-sm-10">
+=======
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Label)
+        </dt>
+        <dd class="col-sm-10">
+>>>>>>> master
             @Html.DisplayFor(model => model.Label)
         </dd>
     </dl>
 </div>
+<<<<<<< HEAD
+=======
+
+<div>
+    <h4>Products of this type</h4>
+    <hr />
+    <dl class="row">
+        @foreach (var product in Model.Products)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => product.Title)
+            </dt>
+            <dd class="col-sm-10">
+                <a asp-controller="Products" asp-action="Details" asp-route-id=@product.ProductId>
+                    @Html.DisplayFor(model => product.Title)
+                </a>
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => product.Quantity)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => product.Quantity)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => product.Price)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => product.Price)
+                <hr/>
+            </dd>
+        }
+    </dl>
+</div>
+>>>>>>> master
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ProductTypeId">Edit</a> |
     <a asp-action="Index">Back to List</a>

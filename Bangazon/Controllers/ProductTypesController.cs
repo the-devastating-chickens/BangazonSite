@@ -20,7 +20,9 @@ namespace Bangazon.Controllers
             _context = context;
         }
 
+        
         // GET: ProductTypes
+        // Billy Mitchell: This GET method is used for the index/list product types view. This method gits all product types/categories and lists display the last three products listed for sale. 
         public async Task<IActionResult> Index()
         {
             var model = new ProductTypeListViewModel();
@@ -41,8 +43,10 @@ namespace Bangazon.Controllers
                 }).ToListAsync();
 
             return View(model);
-        }
+        }       
 
+        // Chris Morgan
+        // The details method accepts the id of the ProductType the user is trying to see details about. The details view displays the product type as well as all the products of the product type.
         // GET: ProductTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -57,6 +61,13 @@ namespace Bangazon.Controllers
             {
                 return NotFound();
             }
+
+            // Setting the Products property by selecting the products with productTypeId == id (parameter)
+
+            productType.Products = await _context.Product.Where(p => p.ProductTypeId == id)
+                                                .ToListAsync();
+
+            
 
             return View(productType);
         }
