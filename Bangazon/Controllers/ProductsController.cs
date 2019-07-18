@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Bangazon.Data;
 using Bangazon.Models;
+using Bangazon.Models.ProductViewModels;
 
 namespace Bangazon.Controllers
 {
@@ -26,6 +27,12 @@ namespace Bangazon.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        //GET ALL ORDER PRODUCTS
+        //JOIN QUERY WITH #OF TIMES THE PRODUCT ID OF THE SELECTED PRODUCT APPEARS IN THE LIST
+        //GET: ALL PRODUCT ORDERS WHERE PrudctId = passed id
+        
+        
+
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -34,16 +41,27 @@ namespace Bangazon.Controllers
                 return NotFound();
             }
 
+
             var product = await _context.Product
                 .Include(p => p.ProductType)
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
+
+
             if (product == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            var orderProduct = await _context.OrderProduct
+                .Where(o => o.ProductId == id).ToListAsync();
+
+            ProductDetailViewModel ViewModel = new ProductDetailViewModel();
+
+            ViewModel.Product = product;
+            ViewModel.OrderProducts = orderProduct;
+
+            return View(ViewModel);
         }
 
         // GET: Products/Create
