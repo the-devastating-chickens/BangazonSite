@@ -9,7 +9,7 @@ using Bangazon.Data;
 using Bangazon.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-
+using Bangazon.Models.ProductViewModels;
 namespace Bangazon.Controllers
 {
     [Authorize]
@@ -49,7 +49,15 @@ namespace Bangazon.Controllers
                 return NotFound();
             }
 
-            return View(product);
+            var orderProduct = await _context.OrderProduct
+                .Where(o => o.ProductId == id).ToListAsync();
+
+            ProductDetailViewModel ViewModel = new ProductDetailViewModel();
+
+            ViewModel.Product = product;
+            ViewModel.OrderProducts = orderProduct;
+
+            return View(ViewModel);
         }
 
         // GET: Products/Create
