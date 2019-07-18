@@ -22,6 +22,9 @@ namespace Bangazon.Controllers
             _context = context;
 
         }
+        //Author: Rose
+        //Date: 7/18/2019
+        //Here we are using the .Take nethod to only grab 20 of the products. OrderByDescending let's us only grab the ones that have been most recently added.
         public IActionResult Index()
         {
             var applicationDbContext = _context.Product.Take(20).OrderByDescending(p => p.DateCreated);
