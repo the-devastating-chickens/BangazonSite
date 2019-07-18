@@ -7,29 +7,27 @@ using Microsoft.AspNetCore.Mvc;
 using Bangazon.Models;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
+using Bangazon.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bangazon.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IConfiguration _config;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(IConfiguration config)
+        public HomeController(ApplicationDbContext context)
         {
-            _config = config;
-        }
-        public SqlConnection Connection
-        {
-            get
-            {
-                return new SqlConnection(_config.GetConnectionString("DefaultConnection"));
-            }
+            _context = context;
+
         }
         public IActionResult Index()
         {
-
-            return View();
+            var applicationDbContext = _context.Product.Take(20).OrderByDescending(p => p.DateCreated);
+            return View(applicationDbContext.ToList());
         }
+
 
         public IActionResult Privacy()
         {
