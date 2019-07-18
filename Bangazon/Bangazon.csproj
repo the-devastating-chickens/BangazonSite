@@ -6,12 +6,6 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Models\ProductTypeViewModels\**" />
-    <Content Remove="Models\ProductTypeViewModels\**" />
-    <EmbeddedResource Remove="Models\ProductTypeViewModels\**" />
-    <None Remove="Models\ProductTypeViewModels\**" />
-  </ItemGroup>
 
 
   <ItemGroup>
