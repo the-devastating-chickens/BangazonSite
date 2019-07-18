@@ -29,7 +29,9 @@
                 @Html.DisplayNameFor(model => product.Title)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => product.Title)
+                <a asp-controller="Products" asp-action="Details" asp-route-id=@product.ProductId>
+                    @Html.DisplayFor(model => product.Title)
+                </a>
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => product.Quantity)
