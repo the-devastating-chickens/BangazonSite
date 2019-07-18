@@ -10,7 +10,9 @@ namespace Bangazon.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {
+            this.Database.SetCommandTimeout(int.MaxValue);
+        }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
         public DbSet<Product> Product { get; set; }
         public DbSet<ProductType> ProductType { get; set; }
@@ -357,10 +359,7 @@ namespace Bangazon.Data
                     Title = "Sneakers",
                     Quantity = 2,
                     Price = 22.69
-                }
-
-            );
-
+                });
             modelBuilder.Entity<Order>().HasData(
                 new Order()
                 {

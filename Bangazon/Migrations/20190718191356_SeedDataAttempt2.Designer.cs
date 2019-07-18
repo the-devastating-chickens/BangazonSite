@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bangazon.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190717184023_SeedDataAttempt2")]
+    [Migration("20190718191356_SeedDataAttempt2")]
     partial class SeedDataAttempt2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -85,7 +85,7 @@ namespace Bangazon.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cabb14bd-8b3c-4723-a9e7-f58c0a710003",
+                            ConcurrencyStamp = "e1db8b16-9055-484a-9770-cac8dd7efc75",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admina",
@@ -93,7 +93,7 @@ namespace Bangazon.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEI6v/RaTKREgSjW1JbS4usOclIC64HPEkgjRYTXV6jOTwZIxghloQDR83lw5NTGEXA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDu5ROwXHE71x2mKmA4L5LaCWiVzUYkXpHu8sc5jQKYVWD7bCOCv8AutquUZwOxyog==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             StreetAddress = "123 Infinity Way",
@@ -300,7 +300,8 @@ namespace Bangazon.Migrations
 
                     b.Property<double>("Price");
 
-                    b.Property<int>("ProductTypeId");
+                    b.Property<int?>("ProductTypeId")
+                        .IsRequired();
 
                     b.Property<int>("Quantity");
 
@@ -378,6 +379,186 @@ namespace Bangazon.Migrations
                             ProductTypeId = 3,
                             Quantity = 32,
                             Title = "Hammer",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 7,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "It is heavy and drills holes into things",
+                            Price = 430.74000000000001,
+                            ProductTypeId = 3,
+                            Quantity = 3,
+                            Title = "Drill Press",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 8,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "It keeps food cold",
+                            Price = 723.22000000000003,
+                            ProductTypeId = 2,
+                            Quantity = 40,
+                            Title = "Refridgerator",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 9,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "It does words",
+                            Price = 19.989999999999998,
+                            ProductTypeId = 4,
+                            Quantity = 320,
+                            Title = "Scrabble",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 10,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "It plays records",
+                            Price = 32.420000000000002,
+                            ProductTypeId = 5,
+                            Quantity = 15,
+                            Title = "Record Player",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 11,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "It gives you health",
+                            Price = 22.690000000000001,
+                            ProductTypeId = 6,
+                            Quantity = 32,
+                            Title = "Vitamin C",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 12,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "It provides shelter",
+                            Price = 45.549999999999997,
+                            ProductTypeId = 7,
+                            Quantity = 12,
+                            Title = "Tent",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 13,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "It moisturizes",
+                            Price = 7.9900000000000002,
+                            ProductTypeId = 8,
+                            Quantity = 52,
+                            Title = "Lotion",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 14,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "It looks bad but feels comfortable",
+                            Price = 25.43,
+                            ProductTypeId = 9,
+                            Quantity = 500,
+                            Title = "Crocs",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 15,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Choo choo!",
+                            Price = 3.75,
+                            ProductTypeId = 10,
+                            Quantity = 1,
+                            Title = "Train",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 16,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "It puts things together",
+                            Price = 0.75,
+                            ProductTypeId = 3,
+                            Quantity = 325,
+                            Title = "Nails",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 17,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "It puts things together",
+                            Price = 0.25,
+                            ProductTypeId = 3,
+                            Quantity = 32,
+                            Title = "Screws",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 18,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "It puts things together",
+                            Price = 0.050000000000000003,
+                            ProductTypeId = 3,
+                            Quantity = 320,
+                            Title = "Washers",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 19,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "It puts things together",
+                            Price = 0.68999999999999995,
+                            ProductTypeId = 3,
+                            Quantity = 3200,
+                            Title = "Bolts",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 20,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "It puts things together",
+                            Price = 1.0,
+                            ProductTypeId = 3,
+                            Quantity = 32,
+                            Title = "Lumber",
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                        },
+                        new
+                        {
+                            ProductId = 21,
+                            Active = true,
+                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "You can run in them!",
+                            Price = 22.690000000000001,
+                            ProductTypeId = 9,
+                            Quantity = 2,
+                            Title = "Sneakers",
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         });
                 });
