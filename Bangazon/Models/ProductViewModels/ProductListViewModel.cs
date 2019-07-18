@@ -26,26 +26,31 @@ namespace Bangazon.Models.ProductViewModels
             _connectionString = connectionString;
 
         }
-        private void GetAllProducts()
-        {
-            using (SqlConnection conn = Connection)
-            {
-                conn.Open();
-                using (SqlCommand cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                        SELECT Id,
-                               Title,
-                               FROM Product
-";
-                    SqlDataReader reader = cmd.ExecuteReader();
-                    Products = new List<Product>();
-                    while (reader.Read())
-                    {
-                        Id = 
-                    }
-                }
-            }
-        }
+//        private void GetAllProducts()
+//        {
+//            using (SqlConnection conn = Connection)
+//            {
+//                conn.Open();
+//                using (SqlCommand cmd = conn.CreateCommand())
+//                {
+//                    cmd.CommandText = @"
+//                        SELECT ProductId,
+//                               Title,
+//                               DateCreated,
+//                               Price,
+//                               Quantity,
+//                               UserId,
+//                               City,
+//                               FROM Product
+//";
+//                    SqlDataReader reader = cmd.ExecuteReader();
+//                    Products = new List<Product>();
+//                    while (reader.Read())
+//                    {
+//                        Id = 
+//                    }
+//                }
+//            }
+//        }
     }
 }
