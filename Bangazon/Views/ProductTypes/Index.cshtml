@@ -17,20 +17,18 @@
         @foreach (var item in Model.GroupedProducts)
         {
             <div>
-                @Html.DisplayFor(modelItem => item.TypeName) (@Html.DisplayFor(modelItem => item.ProductCount))&nbsp;&nbsp;&nbsp;
-                <a asp-action="Edit" asp-route-id="@item.TypeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TypeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TypeId">Delete</a>
+                @Html.DisplayFor(modelItem => item.TypeName) (@Html.DisplayFor(modelItem => item.ProductCount))
             </div>
 
             <div>
                 <ul>
                     @foreach (var product in item.Products)
                     {
-                        <li>
-                            @($"{product.Title}")
+                    <li>
+                        
+                        <a asp-controller="Products" asp-action="Details" asp-route-id="@product.ProductId">@($"{product.Title}")</a>
 
-                        </li>
+                    </li>
                     }
                 </ul>
             </div>
