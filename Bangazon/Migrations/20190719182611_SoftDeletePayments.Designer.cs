@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bangazon.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190719171019_SoftDeletePayment")]
-    partial class SoftDeletePayment
+    [Migration("20190719182611_SoftDeletePayments")]
+    partial class SoftDeletePayments
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,7 +85,7 @@ namespace Bangazon.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "34e2c0d6-ec73-45aa-9fd1-9b4109445fa7",
+                            ConcurrencyStamp = "a95fafdc-e8ba-4a2a-a452-83ca10548ccc",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admina",
@@ -93,7 +93,7 @@ namespace Bangazon.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEP17Ns58v603qXDPgDL+Vpqz/QIIMgYcCoWDt1cyYJAwV3lX3gU7/xVLlVahvmysXA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIz1ygQUGXYU/vR8vBPZsxupCiL12bjIGOLDDUQrmRsnmgC51TapajHOXkx9DT4iwQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             StreetAddress = "123 Infinity Way",
@@ -218,6 +218,8 @@ namespace Bangazon.Migrations
                         .IsRequired()
                         .HasMaxLength(20);
 
+                    b.Property<bool>("Active");
+
                     b.Property<DateTime>("DateCreated")
                         .ValueGeneratedOnAddOrUpdate()
                         .HasDefaultValueSql("GETDATE()");
@@ -225,8 +227,6 @@ namespace Bangazon.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(55);
-
-                    b.Property<bool>("IsActive");
 
                     b.Property<string>("UserId")
                         .IsRequired();
@@ -242,45 +242,45 @@ namespace Bangazon.Migrations
                         {
                             PaymentTypeId = 1,
                             AccountNumber = "86753095551212",
+                            Active = true,
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "American Express",
-                            IsActive = true,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
                         {
                             PaymentTypeId = 2,
                             AccountNumber = "4102948572991",
+                            Active = true,
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Discover",
-                            IsActive = true,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
                         {
                             PaymentTypeId = 3,
                             AccountNumber = "4102948571111",
+                            Active = true,
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Visa",
-                            IsActive = true,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
                         {
                             PaymentTypeId = 4,
                             AccountNumber = "4102948572222",
+                            Active = true,
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "MasterCard",
-                            IsActive = true,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
                         {
                             PaymentTypeId = 5,
                             AccountNumber = "4102948573333",
+                            Active = true,
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Diners Club",
-                            IsActive = true,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         });
                 });

@@ -81,7 +81,7 @@ namespace Bangazon.Data
                     UserId = user.Id,
                     Description = "American Express",
                     AccountNumber = "86753095551212",
-                    IsActive = true
+                    Active = true
                 },
                 new PaymentType()
                 {
@@ -89,7 +89,7 @@ namespace Bangazon.Data
                     UserId = user.Id,
                     Description = "Discover",
                     AccountNumber = "4102948572991",
-                    IsActive = true
+                    Active = true
                 },
                 new PaymentType()
                 {
@@ -97,7 +97,7 @@ namespace Bangazon.Data
                     UserId = user.Id,
                     Description = "Visa",
                     AccountNumber = "4102948571111",
-                    IsActive = true
+                    Active = true
                 },
                 new PaymentType()
                 {
@@ -105,7 +105,7 @@ namespace Bangazon.Data
                     UserId = user.Id,
                     Description = "MasterCard",
                     AccountNumber = "4102948572222",
-                    IsActive = true
+                    Active = true
                 },
                 new PaymentType()
                 {
@@ -113,7 +113,7 @@ namespace Bangazon.Data
                     UserId = user.Id,
                     Description = "Diners Club",
                     AccountNumber = "4102948573333",
-                    IsActive = true
+                    Active = true
                 }
             );
 
@@ -453,7 +453,7 @@ namespace Bangazon.Data
             {
                 return base.SaveChanges();
             }
-            catch (DbUpdateException e)
+            catch (DbUpdateException)
             {
                 foreach (var item in markedAsDeleted)
                 {
