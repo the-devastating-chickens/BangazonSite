@@ -1,4 +1,6 @@
-﻿using System;
+﻿//Author Billy Mitchell
+//This is a scaffoled viewModel for the "My Settings" profile/index view. Most of the properties in this file were pre-poputlated through EF, however, additions have been made to add the ability to update First Name, Last Name, and Street Address.
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -16,6 +18,7 @@ namespace Bangazon.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
+        //ApplicationDbContext has been added to access FirstName, LastName, and StreetAddress
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -24,11 +27,13 @@ namespace Bangazon.Areas.Identity.Pages.Account.Manage
         public IndexModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender, ApplicationDbContext context)
+            IEmailSender emailSender, 
+            //Passing in ApplicationDbConext to the Index Model
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
+            _emailSender = emailSender;            
             _context = context;
         }
 
@@ -44,15 +49,25 @@ namespace Bangazon.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            
+            //Creating input properties for First Name, Last Name, and Street Address so the user can update these fields.
+            [Required]
+            [Display(Name = "First Name")]
             public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last Name")]
             public string LastName { get; set; }
+
+            [Required]
+            [Display(Name = "Street Address")]
             public string StreetAddress { get; set; }
             
             [Required]
             [EmailAddress]
+            [Display(Name = "Email")]
             public string Email { get; set; }
 
+            [Required]
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
@@ -69,6 +84,7 @@ namespace Bangazon.Areas.Identity.Pages.Account.Manage
             var userName = await _userManager.GetUserNameAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            // Creating variables to store the inputted field data and passing the "user" submitted data.
             var firstName = user.FirstName;
             var lastName = user.LastName;
             var streetAddress = user.StreetAddress;
@@ -79,6 +95,7 @@ namespace Bangazon.Areas.Identity.Pages.Account.Manage
             {
                 Email = email,
                 PhoneNumber = phoneNumber,
+                // Adding the inputted field data to the input model
                 FirstName = firstName,
                 LastName = lastName,
                 StreetAddress = streetAddress
@@ -123,14 +140,12 @@ namespace Bangazon.Areas.Identity.Pages.Account.Manage
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
             }
-
-            ModelState.Remove("FirstName");
-            ModelState.Remove("LastName");
-            ModelState.Remove("StreetAddress");
+            
             if (ModelState.IsValid)
             {
                 try
                 {
+                    //Checking to make sure the data is valid and has been added to the database.
                     user.FirstName = Input.FirstName;
                     user.LastName = Input.LastName;
                     user.StreetAddress = Input.StreetAddress;
@@ -145,7 +160,7 @@ namespace Bangazon.Areas.Identity.Pages.Account.Manage
                 }
             }
                
-
+            //Waiting for confirmation and providing a success message to the user and redirecting to current page 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
