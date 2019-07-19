@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -77,35 +78,40 @@ namespace Bangazon.Data
                     PaymentTypeId = 1,
                     UserId = user.Id,
                     Description = "American Express",
-                    AccountNumber = "86753095551212"
+                    AccountNumber = "86753095551212",
+                    IsActive = true
                 },
                 new PaymentType()
                 {
                     PaymentTypeId = 2,
                     UserId = user.Id,
                     Description = "Discover",
-                    AccountNumber = "4102948572991"
+                    AccountNumber = "4102948572991",
+                    IsActive = true
                 },
                 new PaymentType()
                 {
                     PaymentTypeId = 3,
                     UserId = user.Id,
                     Description = "Visa",
-                    AccountNumber = "4102948571111"
+                    AccountNumber = "4102948571111",
+                    IsActive = true
                 },
                 new PaymentType()
                 {
                     PaymentTypeId = 4,
                     UserId = user.Id,
                     Description = "MasterCard",
-                    AccountNumber = "4102948572222"
+                    AccountNumber = "4102948572222",
+                    IsActive = true
                 },
                 new PaymentType()
                 {
                     PaymentTypeId = 5,
                     UserId = user.Id,
                     Description = "Diners Club",
-                    AccountNumber = "4102948573333"
+                    AccountNumber = "4102948573333",
+                    IsActive = true
                 }
             );
 
@@ -283,17 +289,26 @@ namespace Bangazon.Data
 
             var markedAsDeleted = ChangeTracker.Entries().Where(x => x.State == EntityState.Deleted);
 
-            foreach (var item in markedAsDeleted)
+            try
             {
-                if (item.Entity is IIsDeleted entity)
-                {
-                    // Set the entity to unchanged (if we mark the whole entity as Modified, every field gets sent to Db as an update)
-                    item.State = EntityState.Unchanged;
-                    // Only update the IsDeleted flag - only this will get sent to the Db
-                    entity.IsDeleted = true;
-                }
+                return base.SaveChanges();
             }
-            return base.SaveChanges();
+            catch (SqlException e)
+            {
+                foreach (var item in markedAsDeleted)
+                {
+                    if (item.Entity is IIsDeleted entity)
+                    {
+                        // Set the entity to unchanged (if we mark the whole entity as Modified, every field gets sent to Db as an update)
+                        item.State = EntityState.Unchanged;
+                        // Only update the IsDeleted flag - only this will get sent to the Db
+                        entity.IsActive = false;
+                    }
+                }
+                return base.SaveChanges();
+
+            }
+
         }
     }
 }
