@@ -1,3 +1,6 @@
+using Bangazon.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bangazon.Models
 {
-  public class PaymentType
+  public class PaymentType : IIsDeleted
   {
     [Key]
     public int PaymentTypeId { get; set; }
@@ -32,5 +35,10 @@ namespace Bangazon.Models
     public ApplicationUser User { get; set; }
 
     public ICollection<Order> Orders { get; set; }
+
+    
+    public bool ?IsDeleted { get; set; }
+
+    
   }
 }

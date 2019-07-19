@@ -30,7 +30,7 @@ namespace Bangazon.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-            var applicationDbContext = _context.PaymentType.Where(p => p.UserId == currentUser.Id).Include(p => p.User);
+            var applicationDbContext = _context.PaymentType.Where(p => p.UserId == currentUser.Id && p.IsDeleted == false).Include(p => p.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -165,11 +165,11 @@ namespace Bangazon.Controllers
         // POST: PaymentTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var paymentType = await _context.PaymentType.FindAsync(id);
+            var paymentType = _context.PaymentType.Find(id);
             _context.PaymentType.Remove(paymentType);
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
