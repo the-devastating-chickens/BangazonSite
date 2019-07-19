@@ -39,9 +39,11 @@ namespace Bangazon.Controllers
                 applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
 
             }
+            //This switch case statement uses the searchBy parameter which is in _Layout.cs and tells us what we want to be searching through.
             switch (searchBy)
 
             {
+                //
                 case "1":
                     applicationDbContext = _context.Product.Where(p => p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
                     break;
