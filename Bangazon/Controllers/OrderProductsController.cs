@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Bangazon.Data;
 using Bangazon.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Bangazon.Controllers
 {
@@ -14,10 +15,16 @@ namespace Bangazon.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public OrderProductsController(ApplicationDbContext context)
+        private readonly UserManager<ApplicationUser> _userManager;
+
+
+        public OrderProductsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: OrderProducts
         public async Task<IActionResult> Index()
@@ -59,17 +66,57 @@ namespace Bangazon.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderProductId,OrderId,ProductId")] OrderProduct orderProduct)
+        public async Task<IActionResult> Create(int? id, [Bind("OrderProductId,OrderId,ProductId")] OrderProduct orderProduct)
         {
+
+            var currentUser = await GetCurrentUserAsync();
+
             if (ModelState.IsValid)
             {
-                _context.Add(orderProduct);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                int productId = Convert.ToInt32(id);
+                orderProduct.ProductId = productId;
+                //get a list of all orders from db.
+                List<Order> orders = await _context.Order.ToListAsync();
+                //find order that matches the user Id and has no date completed.
+                Order order = orders.Find(o => o.UserId == currentUser.Id && o.DateCompleted == null);
+                //if found, add orderID to orderProduct.
+                if (order != null)
+                {
+                    orderProduct.OrderId = order.OrderId;
+                    _context.Add(orderProduct);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Details", "Orders", new { id = order.OrderId });
+                    //if no order is found, creates one.
+                }
+                else
+                {
+                    Order newOrder = new Order
+                    {
+                        DateCreated = DateTime.Now,
+                        UserId = currentUser.Id,
+                        User = currentUser,
+                    };
+                    _context.Add(newOrder);
+                    //save new order to database
+                    await _context.SaveChangesAsync();
+                    //find that order
+                    Order currentOrder = await _context.Order
+                        .Include(o => o.OrderId)
+                        .Include(o => o.DateCreated)
+                        .Include(o => o.UserId)
+                        .Include(o => o.DateCompleted)
+                        .FirstOrDefaultAsync(m => m.DateCompleted == null && m.UserId == currentUser.Id);
+                    orderProduct.OrderId = currentOrder.OrderId;
+                    _context.Add(orderProduct);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Details", "Orders", new { id = currentOrder.OrderId });
+                }
+            } else
+            {
+                return StatusCode(422);
             }
-            ViewData["OrderId"] = new SelectList(_context.Order, "OrderId", "UserId", orderProduct.OrderId);
-            ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "Description", orderProduct.ProductId);
-            return View(orderProduct);
+            //ViewData["OrderId"] = new SelectList(_context.Order, "OrderId", "UserId", orderProduct.OrderId);
+            //ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "Description", orderProduct.ProductId);
         }
 
         // GET: OrderProducts/Edit/5
