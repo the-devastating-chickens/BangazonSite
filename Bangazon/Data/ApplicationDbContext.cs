@@ -210,6 +210,16 @@ namespace Bangazon.Data
                     Quantity = 32,
                     Price = 22.69
                 },
+                   new Product()
+                   {
+                       ProductId = 6,
+                       ProductTypeId = 2,
+                       UserId = user.Id,
+                       Description = "It blends",
+                       Title = "Blender",
+                       Quantity = 32,
+                       Price = 22.69
+                   },
                 new Product()
                 {
                     ProductId = 7,
