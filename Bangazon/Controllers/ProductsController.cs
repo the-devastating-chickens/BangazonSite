@@ -30,12 +30,12 @@ namespace Bangazon.Controllers
         {
             ViewData["CurrentFilter"] = searchString;
 
-            var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
+            var applicationDbContext = _context.Product.Where(p => p.Active == true).Include(p => p.ProductType).Include(p => p.User);
 
             //If user enters a string into the search input field in the navbar - adding a where clause to include products whose name contains string.
             if (!String.IsNullOrEmpty(searchString))
             {
-                applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                applicationDbContext = _context.Product.Where(p => p.Active == true && p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
             }
 
             return View(await applicationDbContext.ToListAsync());
@@ -45,7 +45,7 @@ namespace Bangazon.Controllers
         public async Task<IActionResult> MyIndex()
         {
             var currentUser = await GetCurrentUserAsync();
-            var applicationDbContext = _context.Product.Where(p => p.UserId == currentUser.Id).Include(p => p.ProductType).Include(p => p.User);
+            var applicationDbContext = _context.Product.Where(p => p.UserId == currentUser.Id && p.Active == true).Include(p => p.ProductType).Include(p => p.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -58,6 +58,7 @@ namespace Bangazon.Controllers
             }
 
             var product = await _context.Product
+                .Where(p => p.Active == true)
                 .Include(p => p.ProductType)
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.ProductId == id);
@@ -131,7 +132,6 @@ namespace Bangazon.Controllers
             }
 
             ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label", product.ProductTypeId);
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", product.UserId);
             return View(product);
         }
 
@@ -169,7 +169,6 @@ namespace Bangazon.Controllers
                 return RedirectToAction(nameof(MyIndex));
             }
             ViewData["ProductTypeId"] = new SelectList(_context.ProductType, "ProductTypeId", "Label", product.ProductTypeId);
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", product.UserId);
             return View(product);
         }
 
@@ -187,13 +186,12 @@ namespace Bangazon.Controllers
                 return NotFound();
             }
 
-            if (currentUser.Id != product.UserId)
+            if (product == null)
             {
                 return NotFound();
             }
 
-
-            if (product == null)
+            if (currentUser.Id != product.UserId)
             {
                 return NotFound();
             }
@@ -204,11 +202,21 @@ namespace Bangazon.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> SoftDeleteConfirmed(int id)
         {
             var product = await _context.Product.FindAsync(id);
-            _context.Product.Remove(product);
-            await _context.SaveChangesAsync();
+            product.Active = false;
+
+            try
+            {
+                _context.Product.Remove(product);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                _context.Update(product);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToAction(nameof(MyIndex));
         }
 
