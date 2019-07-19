@@ -26,8 +26,9 @@ namespace Bangazon.Controllers
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Products
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, string searchBy)
         {
+            ViewData["searchBy"] = searchBy;
             ViewData["CurrentFilter"] = searchString;
 
             var applicationDbContext = _context.Product.Include(p => p.ProductType).Include(p => p.User);
@@ -36,6 +37,20 @@ namespace Bangazon.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+
+            }
+            switch (searchBy)
+
+            {
+                case "1":
+                    applicationDbContext = _context.Product.Where(p => p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                    break;
+                case "2":
+                    applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                    break;
+                default:
+                    applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)||p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                    break;
             }
 
             return View(await applicationDbContext.ToListAsync());

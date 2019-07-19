@@ -48,6 +48,11 @@
                             <form asp-controller="Products" asp-action="Index" method="get">
                                 <input type="text" placeholder="Search products" name="searchString" value="@ViewData["currentFilter"]" />
                                 <input type="submit" value="Search" class="btn btn-sm btn-info" />
+                                <select class="search-by" name="searchBy" value="@ViewData["searchBy"]">
+                                    <option value="0">All</option>
+                                    <option value="1">City</option>
+                                    <option value="2">Product</option>
+                                </select>
                             </form>
                         </li>
                     </ul>
