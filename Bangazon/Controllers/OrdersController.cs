@@ -26,6 +26,7 @@ namespace Bangazon.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+        //Modified by Anne Vick. Now gets a list of orderProducts associated with the order's orderId.
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -42,6 +43,18 @@ namespace Bangazon.Controllers
             {
                 return NotFound();
             }
+
+            var orderProducts = await _context.OrderProduct
+                .Where(o => o.OrderId == id).ToListAsync();
+
+           //get the Product for each orderProduct.
+           foreach (var item in orderProducts)
+            {
+                item.Product = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == item.ProductId);
+            }
+
+            //Add the list of orderProducts to the order.
+            order.OrderProducts = orderProducts;
 
             return View(order);
         }
