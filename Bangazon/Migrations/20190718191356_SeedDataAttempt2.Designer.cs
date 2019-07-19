@@ -4,14 +4,16 @@ using Bangazon.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bangazon.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190718191356_SeedDataAttempt2")]
+    partial class SeedDataAttempt2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,7 +85,7 @@ namespace Bangazon.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e971e44a-66cf-4cd3-afc0-3ec5795edb35",
+                            ConcurrencyStamp = "e1db8b16-9055-484a-9770-cac8dd7efc75",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admina",
@@ -91,7 +93,7 @@ namespace Bangazon.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM8GbBWr9iAugADq7E9QEzM6rL0VnkAr3kpX4W82uP8xbpteK53oNFLUTDLi/a9umQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDu5ROwXHE71x2mKmA4L5LaCWiVzUYkXpHu8sc5jQKYVWD7bCOCv8AutquUZwOxyog==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             StreetAddress = "123 Infinity Way",
@@ -377,18 +379,6 @@ namespace Bangazon.Migrations
                             ProductTypeId = 3,
                             Quantity = 32,
                             Title = "Hammer",
-                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
-                        },
-                        new
-                        {
-                            ProductId = 6,
-                            Active = true,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "It blends",
-                            Price = 22.690000000000001,
-                            ProductTypeId = 2,
-                            Quantity = 32,
-                            Title = "Blender",
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
