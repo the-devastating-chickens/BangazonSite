@@ -165,11 +165,11 @@ namespace Bangazon.Controllers
         // POST: PaymentTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var paymentType = _context.PaymentType.Find(id);
+            var paymentType = await _context.PaymentType.FindAsync(id);
             _context.PaymentType.Remove(paymentType);
-             _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

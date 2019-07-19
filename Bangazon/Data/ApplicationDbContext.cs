@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Bangazon.Interfaces;
 using Bangazon.Models;
@@ -443,7 +444,7 @@ namespace Bangazon.Data
 
         }
 
-        public override int SaveChanges()
+        public override async System.Threading.Tasks.Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             ChangeTracker.DetectChanges();
 
@@ -451,7 +452,7 @@ namespace Bangazon.Data
 
             try
             {
-                return base.SaveChanges();
+                return await base.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
@@ -465,7 +466,7 @@ namespace Bangazon.Data
                         entity.Active = false;
                     }
                 }
-                return base.SaveChanges();
+                return await base.SaveChangesAsync();
 
             }
 
