@@ -82,9 +82,12 @@ namespace Bangazon.Controllers
                 //if found, add orderID to orderProduct.
                 if (order != null)
                 {
+                    //set orderProduct.OrderId to the Order's id.
                     orderProduct.OrderId = order.OrderId;
+                    //add to context and save changes.
                     _context.Add(orderProduct);
                     await _context.SaveChangesAsync();
+                    //Redirect to order details page of the current order.
                     return RedirectToAction("Details", "Orders", new { id = order.OrderId });
                     //if no order is found, creates one.
                 }
@@ -97,26 +100,21 @@ namespace Bangazon.Controllers
                         User = currentUser,
                     };
                     _context.Add(newOrder);
-                    //save new order to database
-                    await _context.SaveChangesAsync();
-                    //find that order
-                    Order currentOrder = await _context.Order
-                        .Include(o => o.OrderId)
-                        .Include(o => o.DateCreated)
-                        .Include(o => o.UserId)
-                        .Include(o => o.DateCompleted)
-                        .FirstOrDefaultAsync(m => m.DateCompleted == null && m.UserId == currentUser.Id);
-                    orderProduct.OrderId = currentOrder.OrderId;
+                    //set orderProduct.OrderId to the id of the new order.
+                    orderProduct.OrderId = newOrder.OrderId;
+                    //add to context and save changes.
                     _context.Add(orderProduct);
                     await _context.SaveChangesAsync();
+                    //find the newly-created order.
+                    Order currentOrder = await _context.Order
+                        .FirstOrDefaultAsync(m => m.DateCompleted == null && m.UserId == currentUser.Id);
+                    //go to Order details of the order.
                     return RedirectToAction("Details", "Orders", new { id = currentOrder.OrderId });
                 }
             } else
             {
                 return StatusCode(422);
             }
-            //ViewData["OrderId"] = new SelectList(_context.Order, "OrderId", "UserId", orderProduct.OrderId);
-            //ViewData["ProductId"] = new SelectList(_context.Product, "ProductId", "Description", orderProduct.ProductId);
         }
 
         // GET: OrderProducts/Edit/5
