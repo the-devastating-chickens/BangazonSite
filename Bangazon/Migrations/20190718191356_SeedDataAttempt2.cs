@@ -282,7 +282,7 @@ namespace Bangazon.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "StreetAddress", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "cabb14bd-8b3c-4723-a9e7-f58c0a710003", "admin@admin.com", true, "Admina", "Straytor", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEI6v/RaTKREgSjW1JbS4usOclIC64HPEkgjRYTXV6jOTwZIxghloQDR83lw5NTGEXA==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", "123 Infinity Way", false, "admin@admin.com" });
+                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "e1db8b16-9055-484a-9770-cac8dd7efc75", "admin@admin.com", true, "Admina", "Straytor", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEDu5ROwXHE71x2mKmA4L5LaCWiVzUYkXpHu8sc5jQKYVWD7bCOCv8AutquUZwOxyog==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", "123 Infinity Way", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "ProductType",
@@ -334,17 +334,67 @@ namespace Bangazon.Migrations
             migrationBuilder.InsertData(
                 table: "Product",
                 columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
-                values: new object[] { 1, true, null, "It flies high", null, 2.9900000000000002, 1, 100, "Kite", "00000000-ffff-ffff-ffff-ffffffffffff" });
+                values: new object[] { 14, true, null, "It looks bad but feels comfortable", null, 25.43, 9, 500, "Crocs", "00000000-ffff-ffff-ffff-ffffffffffff" });
 
             migrationBuilder.InsertData(
                 table: "Product",
                 columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
-                values: new object[] { 2, true, null, "It rolls fast", null, 29.989999999999998, 2, 5, "Wheelbarrow", "00000000-ffff-ffff-ffff-ffffffffffff" });
+                values: new object[] { 13, true, null, "It moisturizes", null, 7.9900000000000002, 8, 52, "Lotion", "00000000-ffff-ffff-ffff-ffffffffffff" });
 
             migrationBuilder.InsertData(
                 table: "Product",
                 columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
-                values: new object[] { 3, true, null, "It cuts things", null, 31.489999999999998, 3, 18, "Saw", "00000000-ffff-ffff-ffff-ffffffffffff" });
+                values: new object[] { 12, true, null, "It provides shelter", null, 45.549999999999997, 7, 12, "Tent", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 11, true, null, "It gives you health", null, 22.690000000000001, 6, 32, "Vitamin C", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 10, true, null, "It plays records", null, 32.420000000000002, 5, 15, "Record Player", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 9, true, null, "It does words", null, 19.989999999999998, 4, 320, "Scrabble", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 20, true, null, "It puts things together", null, 1.0, 3, 32, "Lumber", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 19, true, null, "It puts things together", null, 0.68999999999999995, 3, 3200, "Bolts", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 18, true, null, "It puts things together", null, 0.050000000000000003, 3, 320, "Washers", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 7, true, null, "It is heavy and drills holes into things", null, 430.74000000000001, 3, 3, "Drill Press", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 16, true, null, "It puts things together", null, 0.75, 3, 325, "Nails", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 21, true, null, "You can run in them!", null, 22.690000000000001, 9, 2, "Sneakers", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 5, true, null, "It puts things together", null, 22.690000000000001, 3, 32, "Hammer", "00000000-ffff-ffff-ffff-ffffffffffff" });
 
             migrationBuilder.InsertData(
                 table: "Product",
@@ -354,7 +404,32 @@ namespace Bangazon.Migrations
             migrationBuilder.InsertData(
                 table: "Product",
                 columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
-                values: new object[] { 5, true, null, "It puts things together", null, 22.690000000000001, 3, 32, "Hammer", "00000000-ffff-ffff-ffff-ffffffffffff" });
+                values: new object[] { 3, true, null, "It cuts things", null, 31.489999999999998, 3, 18, "Saw", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 8, true, null, "It keeps food cold", null, 723.22000000000003, 2, 40, "Refridgerator", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 2, true, null, "It rolls fast", null, 29.989999999999998, 2, 5, "Wheelbarrow", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 1, true, null, "It flies high", null, 2.9900000000000002, 1, 100, "Kite", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 17, true, null, "It puts things together", null, 0.25, 3, 32, "Screws", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 15, true, null, "Choo choo!", null, 3.75, 10, 1, "Train", "00000000-ffff-ffff-ffff-ffffffffffff" });
 
             migrationBuilder.InsertData(
                 table: "Order",
