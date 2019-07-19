@@ -30,7 +30,7 @@ namespace Bangazon.Controllers
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-            var applicationDbContext = _context.PaymentType.Where(p => p.UserId == currentUser.Id).Include(p => p.User);
+            var applicationDbContext = _context.PaymentType.Where(p => p.UserId == currentUser.Id && p.Active == true).Include(p => p.User);
             return View(await applicationDbContext.ToListAsync());
         }
 
