@@ -37,11 +37,11 @@ namespace Bangazon.Models
     public ICollection<Order> Orders { get; set; }
 
     
-    public bool IsActive { get; set; }
+    public bool Active { get; set; }
 
     public PaymentType()
     {
-        IsActive = true;
+        Active = true;
     }
 
     

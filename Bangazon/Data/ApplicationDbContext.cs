@@ -453,7 +453,7 @@ namespace Bangazon.Data
             {
                 return base.SaveChanges();
             }
-            catch (SqlException e)
+            catch (DbUpdateException e)
             {
                 foreach (var item in markedAsDeleted)
                 {
@@ -462,7 +462,7 @@ namespace Bangazon.Data
                         // Set the entity to unchanged (if we mark the whole entity as Modified, every field gets sent to Db as an update)
                         item.State = EntityState.Unchanged;
                         // Only update the IsDeleted flag - only this will get sent to the Db
-                        entity.IsActive = false;
+                        entity.Active = false;
                     }
                 }
                 return base.SaveChanges();

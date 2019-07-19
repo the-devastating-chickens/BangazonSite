@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bangazon.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190719155534_NewProduct")]
-    partial class NewProduct
+    [Migration("20190719171019_SoftDeletePayment")]
+    partial class SoftDeletePayment
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,7 +85,7 @@ namespace Bangazon.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e971e44a-66cf-4cd3-afc0-3ec5795edb35",
+                            ConcurrencyStamp = "34e2c0d6-ec73-45aa-9fd1-9b4109445fa7",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admina",
@@ -93,7 +93,7 @@ namespace Bangazon.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM8GbBWr9iAugADq7E9QEzM6rL0VnkAr3kpX4W82uP8xbpteK53oNFLUTDLi/a9umQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP17Ns58v603qXDPgDL+Vpqz/QIIMgYcCoWDt1cyYJAwV3lX3gU7/xVLlVahvmysXA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             StreetAddress = "123 Infinity Way",
@@ -226,6 +226,8 @@ namespace Bangazon.Migrations
                         .IsRequired()
                         .HasMaxLength(55);
 
+                    b.Property<bool>("IsActive");
+
                     b.Property<string>("UserId")
                         .IsRequired();
 
@@ -242,6 +244,7 @@ namespace Bangazon.Migrations
                             AccountNumber = "86753095551212",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "American Express",
+                            IsActive = true,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
@@ -250,6 +253,7 @@ namespace Bangazon.Migrations
                             AccountNumber = "4102948572991",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Discover",
+                            IsActive = true,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
@@ -258,6 +262,7 @@ namespace Bangazon.Migrations
                             AccountNumber = "4102948571111",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Visa",
+                            IsActive = true,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
@@ -266,6 +271,7 @@ namespace Bangazon.Migrations
                             AccountNumber = "4102948572222",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "MasterCard",
+                            IsActive = true,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
@@ -274,6 +280,7 @@ namespace Bangazon.Migrations
                             AccountNumber = "4102948573333",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Diners Club",
+                            IsActive = true,
                             UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         });
                 });

@@ -7,6 +7,6 @@ namespace Bangazon.Interfaces
 {
     public interface IIsDeleted
     {
-        bool IsActive { get; set; }
+        bool Active { get; set; }
     }
 }
