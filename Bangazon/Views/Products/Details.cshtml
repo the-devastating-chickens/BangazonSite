@@ -1,3 +1,5 @@
+@*Modified by Anne Vick to display the Quantity Remaining for the product. Changed the model from the product model to the ProductDetailViewModel.*@
+
 @model Bangazon.Models.ProductViewModels.ProductDetailViewModel
 
 @{
@@ -73,7 +75,7 @@
     </dl>
 </div>
 <div>
-    <button>Add To Order</button>
+    
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Product.ProductId">Edit</a> |

@@ -1,3 +1,5 @@
+//Modified by Anne Rae. Contains a list of Order Products. This list is set to a list of Order Products where the product Id matches the Product Id of the Product Property.
+
 using Bangazon.Models;
 using Bangazon.Data;
 using System.Collections.Generic;

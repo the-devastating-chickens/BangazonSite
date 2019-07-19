@@ -33,6 +33,7 @@ namespace Bangazon.Controllers
         }
 
         // GET: Products/Details/5
+        //Modified by Anne Vick. Now gets a list of orderProducts where the productId matches the id of the found product and that list along with the product in a product detail model view.
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
