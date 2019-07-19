@@ -37,6 +37,7 @@ namespace Bangazon.Models
     public ICollection<Order> Orders { get; set; }
 
     
+    // Active property is used for Soft Delete purposes, this is used as a flag to show that the user has 'deleted' the payment type
     public bool Active { get; set; }
 
     public PaymentType()
