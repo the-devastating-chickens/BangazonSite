@@ -48,7 +48,7 @@ else
                     @Html.DisplayNameFor(model => model.Active)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.User)
+                    @Html.DisplayNameFor(model => model.User.FullName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.ProductType)
@@ -85,7 +85,7 @@ else
                         @Html.DisplayFor(modelItem => item.Active)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.User.Id)
+                        @Html.DisplayFor(modelItem => item.User.FullName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductType.Label)

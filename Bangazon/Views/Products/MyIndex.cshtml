@@ -48,6 +48,9 @@ else
                     @Html.DisplayNameFor(model => model.Active)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.User.FullName)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.ProductType)
                 </th>
                 <th></th>
@@ -80,6 +83,9 @@ else
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Active)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.FullName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ProductType.Label)

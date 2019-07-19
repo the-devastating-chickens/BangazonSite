@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace Bangazon.Models
@@ -9,24 +10,33 @@ namespace Bangazon.Models
     {
         public ApplicationUser()
         {
-             
+
         }
 
         [Required]
-        [Display(Name ="First Name")]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
-        [Display(Name ="Last Name")]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Required]
         public string StreetAddress { get; set; }
-        
+
         public virtual ICollection<Product> Products { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
 
         public virtual ICollection<PaymentType> PaymentTypes { get; set; }
+        [NotMapped]
+        [Display(Name = "Seller")]
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
     }
 }
