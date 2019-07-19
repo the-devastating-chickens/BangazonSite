@@ -7,8 +7,21 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+#tab {
+    margin-left: 40px !important
+}
+
+.TopBorder {
+    border-top: none !important;
+}
+
+ul {
+    list-style: none
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
   font-size: 14px;
 }

@@ -13,7 +13,7 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="/>
+              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -33,7 +33,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="ProductTypes" asp-action="Index">Product Types</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ProductTypes" asp-action="Index">Product Categories</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Create">Sell Something</a>
@@ -44,7 +44,14 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li>
+                            <form asp-controller="Products" asp-action="Index" method="get">
+                                <input type="text" placeholder="Search products" name="searchString" value="@ViewData["currentFilter"]" />
+                                <input type="submit" value="Search" class="btn btn-sm btn-info" />
+                            </form>
+                        </li>
                     </ul>
+
                 </div>
             </div>
         </nav>
