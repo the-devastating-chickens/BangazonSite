@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Bangazon.Models.Product>
+﻿@model IEnumerable<Bangazon.Models.ProductViewModels.ProductDetailViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -24,31 +24,34 @@ else
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.DateCreated)
+                    @Html.DisplayNameFor(model => model.Product.DateCreated)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Description)
+                    @Html.DisplayNameFor(model => model.Product.Description)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Title)
+                    @Html.DisplayNameFor(model => model.Product.Title)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Price)
+                    @Html.DisplayNameFor(model => model.Product.Price)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Quantity)
+                    @Html.DisplayNameFor(model => model.QuantityRemaining)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.City)
+                    Quantity Sold
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ImagePath)
+                    @Html.DisplayNameFor(model => model.Product.City)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.User.FullName)
+                    @Html.DisplayNameFor(model => model.Product.ImagePath)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ProductType)
+                    @Html.DisplayNameFor(model => model.Product.User.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product.ProductType)
                 </th>
                 <th></th>
             </tr>
@@ -58,36 +61,40 @@ else
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.DateCreated)
+                        @Html.DisplayFor(modelItem => item.Product.DateCreated)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Description)
+                        @Html.DisplayFor(modelItem => item.Product.Description)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Title)
+                        @Html.DisplayFor(modelItem => item.Product.Title)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Price)
+                        @Html.DisplayFor(modelItem => item.Product.Price)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
+                        @Html.DisplayFor(modelItem => item.QuantityRemaining)
+                    </td>
+                    @* On the line below we are getting items sold by subtracting the quantity remaining from the total quantity*@
+                    <td>
+                        @(item.Product.Quantity - item.QuantityRemaining)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.City)
+                        @Html.DisplayFor(modelItem => item.Product.City)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ImagePath)
+                        @Html.DisplayFor(modelItem => item.Product.ImagePath)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.User.FullName)
+                        @Html.DisplayFor(modelItem => item.Product.User.FullName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ProductType.Label)
+                        @Html.DisplayFor(modelItem => item.Product.ProductType.Label)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@item.Product.ProductId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Product.ProductId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Product.ProductId">Delete</a>
                     </td>
                 </tr>
             }

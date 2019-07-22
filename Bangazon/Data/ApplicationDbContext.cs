@@ -75,6 +75,78 @@ namespace Bangazon.Data
             user.PasswordHash = passwordHash.HashPassword(user, "Admin8*");
             modelBuilder.Entity<ApplicationUser>().HasData(user);
 
+
+            ApplicationUser user2 = new ApplicationUser
+            {
+                FirstName = "Rose",
+                LastName = "Wisotzky",
+                StreetAddress = "21 Lover's Lane",
+                UserName = "rose@rose.com",
+                NormalizedUserName = "ROSE@ROSE.COM",
+                Email = "rose@rose.com",
+                NormalizedEmail = "ROSE@ROSE.COM",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = "7f434300-a4d9-48e9-9ebb-8803db794577",
+                Id = "00000330-ffff-ffff-ffff-ffffffffffff"
+            };
+            var passwordHashRose = new PasswordHasher<ApplicationUser>();
+            user2.PasswordHash = passwordHashRose.HashPassword(user, "Rose8*");
+            modelBuilder.Entity<ApplicationUser>().HasData(user2);
+
+            ApplicationUser user3 = new ApplicationUser
+            {
+                FirstName = "Chris",
+                LastName = "Morgan",
+                StreetAddress = "22 Lover's Lane",
+                UserName = "chris@chris.com",
+                NormalizedUserName = "CHRIS@CHRIS.COM",
+                Email = "chris@chris.com",
+                NormalizedEmail = "CHRIS@CHRIS.COM",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = "7f422300-a4d9-48e9-9ebb-8803db794577",
+                Id = "02200330-ffff-ffff-ffff-ffffffffffff"
+            };
+            var passwordHashChris = new PasswordHasher<ApplicationUser>();
+            user3.PasswordHash = passwordHashChris.HashPassword(user, "Chris8*");
+            modelBuilder.Entity<ApplicationUser>().HasData(user3);
+
+            ApplicationUser user4 = new ApplicationUser
+            {
+                FirstName = "Anne Rae",
+                LastName = "Vick",
+                StreetAddress = "19 Lover's Lane",
+                UserName = "anne@anne.com",
+                NormalizedUserName = "ANNE@ANNE.COM",
+                Email = "anne@anne.com",
+                NormalizedEmail = "ANNE@ANNE.COM",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = "7f004300-a4d9-48e9-9ebb-8803db794577",
+                Id = "45000330-ffff-ffff-ffff-ffffffffffff"
+            };
+            var passwordHashAnne = new PasswordHasher<ApplicationUser>();
+            user4.PasswordHash = passwordHashAnne.HashPassword(user, "Anne8*");
+            modelBuilder.Entity<ApplicationUser>().HasData(user4);
+
+            ApplicationUser user5 = new ApplicationUser
+            {
+                FirstName = "Billy",
+                LastName = "M",
+                StreetAddress = "33 Lover's Lane",
+                UserName = "billy@billy.com",
+                NormalizedUserName = "BILLY@BILLY.COM",
+                Email = "billy@billy.com",
+                NormalizedEmail = "BILLY@BILLY.COM",
+                EmailConfirmed = true,
+                LockoutEnabled = false,
+                SecurityStamp = "7f004300-a4d9-48e9-9ebb-8803db794577",
+                Id = "45670330-ffff-ffff-ffff-ffffffffffff"
+            };
+            var passwordHashBilly = new PasswordHasher<ApplicationUser>();
+            user5.PasswordHash = passwordHashBilly.HashPassword(user, "Billy8*");
+            modelBuilder.Entity<ApplicationUser>().HasData(user5);
             modelBuilder.Entity<PaymentType>().HasData(
                 new PaymentType()
                 {
@@ -176,7 +248,7 @@ namespace Bangazon.Data
                 {
                     ProductId = 1,
                     ProductTypeId = 1,
-                    UserId = user.Id,
+                    UserId = user2.Id,
                     Description = "It flies high",
                     Title = "Kite",
                     Quantity = 100,
@@ -196,7 +268,7 @@ namespace Bangazon.Data
                 {
                     ProductId = 3,
                     ProductTypeId = 3,
-                    UserId = user.Id,
+                    UserId = user3.Id,
                     Description = "It cuts things",
                     Title = "Saw",
                     Quantity = 18,
@@ -216,7 +288,7 @@ namespace Bangazon.Data
                 {
                     ProductId = 5,
                     ProductTypeId = 3,
-                    UserId = user.Id,
+                    UserId = user4.Id,
                     Description = "It puts things together",
                     Title = "Hammer",
                     Quantity = 32,
@@ -238,7 +310,7 @@ namespace Bangazon.Data
                 {
                     ProductId = 7,
                     ProductTypeId = 3,
-                    UserId = user.Id,
+                    UserId = user3.Id,
                     Description = "It is heavy and drills holes into things",
                     Title = "Drill Press",
                     City = "Durham",
@@ -249,7 +321,7 @@ namespace Bangazon.Data
                 {
                     ProductId = 8,
                     ProductTypeId = 2,
-                    UserId = user.Id,
+                    UserId = user2.Id,
                     Description = "It keeps food cold",
                     Title = "Refridgerator",
                     Quantity = 40,
@@ -260,7 +332,7 @@ namespace Bangazon.Data
                 {
                     ProductId = 9,
                     ProductTypeId = 4,
-                    UserId = user.Id,
+                    UserId = user4.Id,
                     Description = "It does words",
                     Title = "Scrabble",
                     City = "Watertown",
@@ -271,7 +343,7 @@ namespace Bangazon.Data
                 {
                     ProductId = 10,
                     ProductTypeId = 5,
-                    UserId = user.Id,
+                    UserId = user2.Id,
                     Description = "It plays records",
                     Title = "Record Player",
                     City = "Madison",
@@ -282,7 +354,7 @@ namespace Bangazon.Data
                 {
                     ProductId = 11,
                     ProductTypeId = 6,
-                    UserId = user.Id,
+                    UserId = user3.Id,
                     Description = "It gives you health",
                     Title = "Vitamin C",
                     City = "Clarksville",
@@ -304,7 +376,7 @@ namespace Bangazon.Data
                 {
                     ProductId = 13,
                     ProductTypeId = 8,
-                    UserId = user.Id,
+                    UserId = user4.Id,
                     Description = "It moisturizes",
                     Title = "Lotion",
                     City = "Watertown",
@@ -315,7 +387,7 @@ namespace Bangazon.Data
                 {
                     ProductId = 14,
                     ProductTypeId = 9,
-                    UserId = user.Id,
+                    UserId = user5.Id,
                     Description = "It looks bad but feels comfortable",
                     Title = "Crocs",
                     Quantity = 500,
@@ -403,7 +475,7 @@ namespace Bangazon.Data
                 new Order()
                 {
                     OrderId = 2,
-                    UserId = user.Id,
+                    UserId = user5.Id,
                     PaymentTypeId = 2
                 },
                 new Order()
@@ -415,7 +487,7 @@ namespace Bangazon.Data
                 new Order()
                 {
                     OrderId = 4,
-                    UserId = user.Id,
+                    UserId = user2.Id,
                     PaymentTypeId = null
                 }
             );

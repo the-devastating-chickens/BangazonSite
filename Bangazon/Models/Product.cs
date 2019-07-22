@@ -14,6 +14,8 @@ namespace Bangazon.Models
         [Required]
         [DataType(DataType.Date)]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Display(Name = "Listed On")]
+
         public DateTime DateCreated { get; set; }
 
         [Required]
@@ -53,6 +55,7 @@ namespace Bangazon.Models
         [Required]
         [Display(Name = "Product Category")]
         public int? ProductTypeId { get; set; }
+        [Display(Name = "Product Category")]
 
         public ProductType ProductType { get; set; }
 
@@ -61,6 +64,15 @@ namespace Bangazon.Models
         public Product()
         {
             Active = true;
+        }
+
+        [NotMapped]
+        public int QuantityRemaining
+        {
+            get
+            {
+                return Quantity - OrderProducts.Count;
+            }
         }
 
     }
