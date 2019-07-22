@@ -43,14 +43,29 @@ namespace Bangazon.Controllers
             {
                 //get a list of all orders from db.
                 List<Order> orders = await _context.Order.ToListAsync();
-                //find order that matches the user Id and has no date completed.
+                //find order that matches the user Id and has no payment type associated with it.
                 Order currentOrder = orders.Find(o => o.UserId == currentUser.Id && o.PaymentTypeId == null);
 
+                //if current order is found, return it in the view.
                 if (currentOrder != null)
                 {
+                    var currentOrderProducts = await _context.OrderProduct
+                        .Where(op => op.OrderId == currentOrder.OrderId).ToListAsync();
+
+                    //get the Product for each orderProduct.
+                    foreach (var item in currentOrderProducts)
+                    {
+                        item.Product = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == item.ProductId);
+                    }
+
+                    //Add the list of orderProducts to the order.
+                    currentOrder.OrderProducts = currentOrderProducts;
+
                     return View(currentOrder);
+
                 } else
                 {
+                    //if not found, creates a new order by calling the order create method and returning the IActionResult as its own result.
                     Order newOrder = new Order();
                     return await this.Create(newOrder);
                 }
