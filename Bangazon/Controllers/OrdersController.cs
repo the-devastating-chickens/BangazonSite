@@ -38,7 +38,7 @@ namespace Bangazon.Controllers
         {
             if (id == null)
             {
-                
+
             }
 
             var order = await _context.Order
@@ -53,8 +53,8 @@ namespace Bangazon.Controllers
             var orderProducts = await _context.OrderProduct
                 .Where(o => o.OrderId == id).ToListAsync();
 
-           //get the Product for each orderProduct.
-           foreach (var item in orderProducts)
+            //get the Product for each orderProduct.
+            foreach (var item in orderProducts)
             {
                 item.Product = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == item.ProductId);
             }
@@ -82,7 +82,8 @@ namespace Bangazon.Controllers
                 _context.Add(order);
                 await _context.SaveChangesAsync();
                 return View(order);
-            } else
+            }
+            else
             {
                 return StatusCode(422);
 
@@ -111,6 +112,8 @@ namespace Bangazon.Controllers
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var currentUser = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
@@ -121,6 +124,17 @@ namespace Bangazon.Controllers
             {
                 return NotFound();
             }
+
+            if (order.PaymentType != null)
+            {
+                return NotFound();
+            }
+
+            if (order.UserId != currentUser.Id)
+            {
+                return NotFound();
+            }
+
             ViewData["PaymentTypeId"] = new SelectList(_context.PaymentType, "PaymentTypeId", "AccountNumber", order.PaymentTypeId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", order.UserId);
             return View(order);
@@ -166,15 +180,28 @@ namespace Bangazon.Controllers
         // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var currentUser = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var order = await _context.Order
-                .Include(o => o.PaymentType)
-                .Include(o => o.User)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
+                        .Include(o => o.PaymentType)
+                        .Include(o => o.User)
+                        .FirstOrDefaultAsync(m => m.OrderId == id);
+
+            if (order.PaymentType != null)
+            {
+                return NotFound();
+            }
+
+            if (order.UserId != currentUser.Id)
+            {
+                return NotFound();
+            }
+
             if (order == null)
             {
                 return NotFound();
