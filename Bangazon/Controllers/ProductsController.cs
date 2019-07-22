@@ -76,9 +76,11 @@ namespace Bangazon.Controllers
             //view model for product details.
             ProductDetailViewModel ViewModel = new ProductDetailViewModel();
 
+            //add product and order product lists to the Product Detail View Model.
             ViewModel.Product = product;
             ViewModel.OrderProducts = orderProduct;
 
+            //passes Detail View Model to the view.
             return View(ViewModel);
         }
 
@@ -86,7 +88,6 @@ namespace Bangazon.Controllers
         public IActionResult Create()
         {
             //Building a list of product types with the intial value of null and no message to ensure user selects a category
-
             List<SelectListItem> productTypeItems = new SelectList(_context.ProductType, "ProductTypeId", "Label").ToList();
             productTypeItems.Insert(0, (new SelectListItem { Text = "", Value = null }));
             ViewData["ProductTypeId"] = productTypeItems;
