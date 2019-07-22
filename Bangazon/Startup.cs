@@ -36,9 +36,10 @@ namespace Bangazon
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //This method gets the connection string and extends the timeout so Rose's computer won't get mad!
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnection"), opts => opts.CommandTimeout((int)TimeSpan.FromMinutes(10).TotalSeconds)));
 
             services.AddDefaultIdentity<ApplicationUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
