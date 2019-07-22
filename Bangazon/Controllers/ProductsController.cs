@@ -50,6 +50,7 @@ namespace Bangazon.Controllers
         }
 
         // GET: Products/Details/5
+        //Modified by Anne Vick. Now gets a list of orderProducts where the productId matches the id of the found product and that list along with the product in a product detail model view.
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -57,6 +58,7 @@ namespace Bangazon.Controllers
                 return NotFound();
             }
 
+            //get product with a join table with productType and User.
             var product = await _context.Product
                 .Where(p => p.Active == true)
                 .Include(p => p.ProductType)
@@ -67,14 +69,18 @@ namespace Bangazon.Controllers
                 return NotFound();
             }
 
+            //Getting a list of orderProducts that are associated with the current product's Id.
             var orderProduct = await _context.OrderProduct
                 .Where(o => o.ProductId == id).ToListAsync();
 
+            //view model for product details.
             ProductDetailViewModel ViewModel = new ProductDetailViewModel();
 
+            //add product and order product lists to the Product Detail View Model.
             ViewModel.Product = product;
             ViewModel.OrderProducts = orderProduct;
 
+            //passes Detail View Model to the view.
             return View(ViewModel);
         }
 
@@ -82,7 +88,6 @@ namespace Bangazon.Controllers
         public IActionResult Create()
         {
             //Building a list of product types with the intial value of null and no message to ensure user selects a category
-
             List<SelectListItem> productTypeItems = new SelectList(_context.ProductType, "ProductTypeId", "Label").ToList();
             productTypeItems.Insert(0, (new SelectListItem { Text = "", Value = null }));
             ViewData["ProductTypeId"] = productTypeItems;
@@ -95,7 +100,7 @@ namespace Bangazon.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,DateCreated,Description,Title,Price,Quantity,UserId,City,ImagePath,Active,ProductTypeId")] Product product)
+        public async Task<IActionResult> Create(int? id, [Bind("ProductId,DateCreated,Description,Title,Price,Quantity,UserId,City,ImagePath,Active,ProductTypeId")] Product product)
         {
             ModelState.Remove("User");
             ModelState.Remove("UserId");
