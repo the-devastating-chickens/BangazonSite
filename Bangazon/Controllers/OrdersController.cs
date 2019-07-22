@@ -23,16 +23,17 @@ namespace Bangazon.Controllers
             _userManager = userManager;
         }
 
-        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+        //private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
+        // Modified by Billy Mitchell. This controller pull all previous orders and current cart that are only associated with the currently logged in user.
         // GET: Orders
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            var applicationDbContext = _context.Order.Include(o => o.PaymentType).Include(o => o.User).Where(o => o.UserId == currentUser.Id);
+            var applicationDbContext = _context.Order.Include(o => o.PaymentType).Include(o => o.User).Where(o => o.UserId == currentUser.Id && o.PaymentType != null);
             return View(await applicationDbContext.ToListAsync());
         }
-
+        
         //Modified by Anne Vick. Now gets a list of orderProducts associated with the order's orderId.
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
