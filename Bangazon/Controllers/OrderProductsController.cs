@@ -78,7 +78,7 @@ namespace Bangazon.Controllers
                 //get a list of all orders from db.
                 List<Order> orders = await _context.Order.ToListAsync();
                 //find order that matches the user Id and has no date completed.
-                Order order = orders.Find(o => o.UserId == currentUser.Id && o.DateCompleted == null);
+                Order order = orders.Find(o => o.UserId == currentUser.Id && o.PaymentTypeId == null);
                 //if found, add orderID to orderProduct.
                 if (order != null)
                 {
@@ -107,7 +107,7 @@ namespace Bangazon.Controllers
                     await _context.SaveChangesAsync();
                     //find the newly-created order.
                     Order currentOrder = await _context.Order
-                        .FirstOrDefaultAsync(m => m.DateCompleted == null && m.UserId == currentUser.Id);
+                        .FirstOrDefaultAsync(m => m.PaymentTypeId == null && m.UserId == currentUser.Id);
                     //go to Order details of the order.
                     return RedirectToAction("Details", "Orders", new { id = currentOrder.OrderId });
                 }
