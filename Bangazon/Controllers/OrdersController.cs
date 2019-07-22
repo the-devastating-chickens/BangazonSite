@@ -62,7 +62,6 @@ namespace Bangazon.Controllers
                     currentOrder.OrderProducts = currentOrderProducts;
 
                     return View(currentOrder);
-
                 } else
                 {
                     //if not found, creates a new order by calling the order create method and returning the IActionResult as its own result.
@@ -75,6 +74,7 @@ namespace Bangazon.Controllers
                 .Include(o => o.PaymentType)
                 .Include(o => o.User)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
+
             if (order == null)
             {
                 return NotFound();
