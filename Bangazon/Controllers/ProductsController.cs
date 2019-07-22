@@ -50,6 +50,7 @@ namespace Bangazon.Controllers
                 return NotFound();
             }
 
+            //get product with a join table with productType and User.
             var product = await _context.Product
                 .Include(p => p.ProductType)
                 .Include(p => p.User)
@@ -59,9 +60,11 @@ namespace Bangazon.Controllers
                 return NotFound();
             }
 
+            //Getting a list of orderProducts that are associated with the current product's Id.
             var orderProduct = await _context.OrderProduct
                 .Where(o => o.ProductId == id).ToListAsync();
 
+            //view model for product details.
             ProductDetailViewModel ViewModel = new ProductDetailViewModel();
 
             ViewModel.Product = product;
