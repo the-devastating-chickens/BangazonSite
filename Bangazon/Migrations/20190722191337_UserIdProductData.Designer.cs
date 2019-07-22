@@ -4,14 +4,16 @@ using Bangazon.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bangazon.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190722191337_UserIdProductData")]
+    partial class UserIdProductData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,7 +85,7 @@ namespace Bangazon.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "42812836-2c81-46ff-8db0-75ce94b068b1",
+                            ConcurrencyStamp = "e5c89d9d-60dd-4864-b866-238dd423d6e5",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admina",
@@ -91,7 +93,7 @@ namespace Bangazon.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJ9TDtHfK2/aTXgITjO2Foi6UU/oxMkZpe8MfE8r6sBZYLSpLMbHu1pfVCDCP+8B1g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEniRF2nac6EsWnNuhywXjyGWP3eqJniXZt/DWKZUAZhyP3Hy0JtoUVFNRiqK707vQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             StreetAddress = "123 Infinity Way",
@@ -102,7 +104,7 @@ namespace Bangazon.Migrations
                         {
                             Id = "00000330-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "03bad54b-fc09-46e8-9a8d-ca8e93f51ace",
+                            ConcurrencyStamp = "66444ee5-6886-4ebf-a48e-f342ff44ff79",
                             Email = "rose@rose.com",
                             EmailConfirmed = true,
                             FirstName = "Rose",
@@ -110,7 +112,7 @@ namespace Bangazon.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ROSE@ROSE.COM",
                             NormalizedUserName = "ROSE@ROSE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEMqJ36YFpMnx3DqBt2tovw9MdWdtcdP+9Rszg8SvdS89o9/C4GlgKdnTyx1bk898A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB0hE+5hnFofCwVU7NXR8EtOlOYs/BjJJDXBTAjARN6+hsFZS1GTOAFB4FY+pIIcEA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434300-a4d9-48e9-9ebb-8803db794577",
                             StreetAddress = "21 Lover's Lane",
@@ -121,7 +123,7 @@ namespace Bangazon.Migrations
                         {
                             Id = "02200330-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "702c5ddf-1ede-4c29-b64e-275d1a4cf364",
+                            ConcurrencyStamp = "276bb599-3e4e-41af-83e1-970284c8cf59",
                             Email = "chris@chris.com",
                             EmailConfirmed = true,
                             FirstName = "Chris",
@@ -129,7 +131,7 @@ namespace Bangazon.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CHRIS@CHRIS.COM",
                             NormalizedUserName = "CHRIS@CHRIS.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF7BEi9PmRujwEAH0wyZfmyGjSXYYTez4rX21ulUogpxM2n453G7y5eLm3P3+Wd0Hg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEP5tmVMPiWUC3vQW5HR4cJJdM8Gi8BCbshztMq/SK2RTqy7HDzVnBCcM5IrdbemUog==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f422300-a4d9-48e9-9ebb-8803db794577",
                             StreetAddress = "22 Lover's Lane",
@@ -140,7 +142,7 @@ namespace Bangazon.Migrations
                         {
                             Id = "45000330-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "106e643b-fe9a-49ca-ad3d-e9c55b8ad3b6",
+                            ConcurrencyStamp = "31b91774-18dd-4619-aff2-21268a9a68f0",
                             Email = "anne@anne.com",
                             EmailConfirmed = true,
                             FirstName = "Anne Rae",
@@ -148,7 +150,7 @@ namespace Bangazon.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ANNE@ANNE.COM",
                             NormalizedUserName = "ANNE@ANNE.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECJdTmLbk8QvRnUDnmet3w/sgqG2PcLRvfReTNbxq05wbgNik/Nxg/DNVJvvL9EL4g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHIYLEHvPvyT0NL6gz0JuhbI1OZkbE+U06k4inzu8jGVQ+LNWWj8prQcYXT4m27Ynw==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f004300-a4d9-48e9-9ebb-8803db794577",
                             StreetAddress = "19 Lover's Lane",
@@ -159,7 +161,7 @@ namespace Bangazon.Migrations
                         {
                             Id = "45670330-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f52e193e-4d88-48c9-8557-3324f7b0ee56",
+                            ConcurrencyStamp = "000f23ce-30aa-44fd-82cf-f38cb927ffc4",
                             Email = "billy@billy.com",
                             EmailConfirmed = true,
                             FirstName = "Billy",
@@ -167,7 +169,7 @@ namespace Bangazon.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "BILLY@BILLY.COM",
                             NormalizedUserName = "BILLY@BILLY.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGttm2+nMXHPiwI7+3Uk2dTsB/sHiyBNykEJaR9LUjd4/78l6KXG/ErfMiAKAMHoIQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAvQ3LcB4nDu0cdyNzjQRkCyIUArIarIN4Zs/48z9J+s6DLZqVD1nThqrqoS7xG4rg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f004300-a4d9-48e9-9ebb-8803db794577",
                             StreetAddress = "33 Lover's Lane",
@@ -214,7 +216,7 @@ namespace Bangazon.Migrations
                             OrderId = 2,
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentTypeId = 2,
-                            UserId = "45670330-ffff-ffff-ffff-ffffffffffff"
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
                         {
@@ -227,7 +229,7 @@ namespace Bangazon.Migrations
                         {
                             OrderId = 4,
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            UserId = "00000330-ffff-ffff-ffff-ffffffffffff"
+                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
                         });
                 });
 
@@ -577,7 +579,7 @@ namespace Bangazon.Migrations
                             ProductTypeId = 9,
                             Quantity = 500,
                             Title = "Crocs",
-                            UserId = "45670330-ffff-ffff-ffff-ffffffffffff"
+                            UserId = "02200330-ffff-ffff-ffff-ffffffffffff"
                         },
                         new
                         {

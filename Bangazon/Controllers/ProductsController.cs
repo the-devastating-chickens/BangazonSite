@@ -36,24 +36,22 @@ namespace Bangazon.Controllers
             //If user enters a string into the search input field in the navbar - adding a where clause to include products whose name contains string.
             if (!String.IsNullOrEmpty(searchString))
             {
-                applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                switch (searchBy)
 
+                {
+               
+                    case "1":
+                        applicationDbContext = _context.Product.Where(p => p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                        break;
+                    case "2":
+                        applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                        break;
+                    default:
+                        applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString) || p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                        break;
+                }
             }
             //This switch case statement uses the searchBy parameter which is in _Layout.cs and tells us what we want to be searching through.
-            switch (searchBy)
-
-            {
-                //
-                case "1":
-                    applicationDbContext = _context.Product.Where(p => p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
-                    break;
-                case "2":
-                    applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
-                    break;
-                default:
-                    applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)||p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
-                    break;
-            }
 
             return View(await applicationDbContext.ToListAsync());
         }
@@ -62,7 +60,14 @@ namespace Bangazon.Controllers
         public async Task<IActionResult> MyIndex()
         {
             var currentUser = await GetCurrentUserAsync();
-            var applicationDbContext = _context.Product.Where(p => p.UserId == currentUser.Id && p.Active == true).Include(p => p.ProductType).Include(p => p.User);
+
+
+            var applicationDbContext = _context.Product.Where(p => p.UserId == currentUser.Id && p.Active == true)
+                .Include(p => p.ProductType)
+                .Include(p => p.User);
+
+
+           // applicationDbContext.Select( p => p.OrderProducts = _context.OrderProduct.Where(op => op.ProductId == p.ProductId).ToList());
             return View(await applicationDbContext.ToListAsync());
         }
 
