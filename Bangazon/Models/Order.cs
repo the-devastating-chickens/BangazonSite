@@ -31,6 +31,9 @@ namespace Bangazon.Models
         [Display(Name = "Payment Type")]
         public PaymentType PaymentType { get; set; }
 
+        [NotMapped]
+        public double OrderTotal { get; set; }
+
         [Display(Name = "Products")]
         public virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }
