@@ -23,24 +23,33 @@ namespace Bangazon.Controllers
             _userManager = userManager;
         }
 
-        //private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // Modified by Billy Mitchell. This controller pull all previous orders and current cart that are only associated with the currently logged in user.
         // GET: Orders
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            var applicationDbContext = _context.Order.Include(o => o.PaymentType).Include(o => o.User).Where(o => o.UserId == currentUser.Id);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        // Modified by Billy Mitchell. This controller pull all previous orders and current cart that are only associated with the currently logged in user.
+        // GET: Orders
+        public async Task<IActionResult> OrderHistory()
+        {
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
             var applicationDbContext = _context.Order.Include(o => o.PaymentType).Include(o => o.User).Where(o => o.UserId == currentUser.Id && o.PaymentType != null);
             return View(await applicationDbContext.ToListAsync());
         }
-        
+
         //Modified by Anne Vick. Now gets a list of orderProducts associated with the order's orderId.
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
-                
+                return NotFound();
             }
 
             var order = await _context.Order
@@ -57,13 +66,13 @@ namespace Bangazon.Controllers
 
             var OrdertTotal = 0.0;
 
-           //get the Product for each orderProduct.
-           foreach (var item in orderProducts)
+            //get the Product for each orderProduct.
+            foreach (var item in orderProducts)
             {
                 item.Product = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == item.ProductId);
                 OrdertTotal += item.Product.Price;
             }
-           
+
             //Add the list of orderProducts to the order.
             order.OrderProducts = orderProducts;
 
@@ -90,7 +99,8 @@ namespace Bangazon.Controllers
                 _context.Add(order);
                 await _context.SaveChangesAsync();
                 return View(order);
-            } else
+            }
+            else
             {
                 return StatusCode(422);
 
@@ -119,16 +129,33 @@ namespace Bangazon.Controllers
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var currentUser = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var order = await _context.Order.FindAsync(id);
+            var order = await _context.Order
+                        .Include(o => o.PaymentType)
+                        .Include(o => o.User)
+                        .FirstOrDefaultAsync(m => m.OrderId == id);
+
             if (order == null)
             {
                 return NotFound();
             }
+
+            if (order.PaymentType != null)
+            {
+                return NotFound();
+            }
+
+            if (order.UserId != currentUser.Id)
+            {
+                return NotFound();
+            }
+
             ViewData["PaymentTypeId"] = new SelectList(_context.PaymentType, "PaymentTypeId", "AccountNumber", order.PaymentTypeId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", order.UserId);
             return View(order);
@@ -174,15 +201,28 @@ namespace Bangazon.Controllers
         // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var currentUser = await GetCurrentUserAsync();
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var order = await _context.Order
-                .Include(o => o.PaymentType)
-                .Include(o => o.User)
-                .FirstOrDefaultAsync(m => m.OrderId == id);
+                        .Include(o => o.PaymentType)
+                        .Include(o => o.User)
+                        .FirstOrDefaultAsync(m => m.OrderId == id);
+
+            if (order.PaymentType != null)
+            {
+                return NotFound();
+            }
+
+            if (order.UserId != currentUser.Id)
+            {
+                return NotFound();
+            }
+
             if (order == null)
             {
                 return NotFound();
