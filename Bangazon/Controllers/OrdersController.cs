@@ -23,15 +23,17 @@ namespace Bangazon.Controllers
             _userManager = userManager;
         }
 
-        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+        //private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
+        // Modified by Billy Mitchell. This controller pull all previous orders and current cart that are only associated with the currently logged in user.
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Order.Include(o => o.PaymentType).Include(o => o.User);
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            var applicationDbContext = _context.Order.Include(o => o.PaymentType).Include(o => o.User).Where(o => o.UserId == currentUser.Id && o.PaymentType != null);
             return View(await applicationDbContext.ToListAsync());
         }
-
+        
         //Modified by Anne Vick. Now gets a list of orderProducts associated with the order's orderId.
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -53,14 +55,20 @@ namespace Bangazon.Controllers
             var orderProducts = await _context.OrderProduct
                 .Where(o => o.OrderId == id).ToListAsync();
 
+            var OrdertTotal = 0.0;
+
            //get the Product for each orderProduct.
            foreach (var item in orderProducts)
             {
                 item.Product = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == item.ProductId);
+                OrdertTotal += item.Product.Price;
             }
-
+           
             //Add the list of orderProducts to the order.
             order.OrderProducts = orderProducts;
+
+            //Adding the price of each product together.
+            order.OrderTotal = OrdertTotal;
 
             return View(order);
         }
