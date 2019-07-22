@@ -220,6 +220,7 @@ namespace Bangazon.Data
                     Description = "It puts things together",
                     Title = "Hammer",
                     Quantity = 32,
+                    City = "Nashville",
                     Price = 22.69
                 },
                    new Product()
@@ -229,6 +230,7 @@ namespace Bangazon.Data
                        UserId = user.Id,
                        Description = "It blends",
                        Title = "Blender",
+                       City = "Northampton",
                        Quantity = 32,
                        Price = 22.69
                    },
@@ -239,6 +241,7 @@ namespace Bangazon.Data
                     UserId = user.Id,
                     Description = "It is heavy and drills holes into things",
                     Title = "Drill Press",
+                    City = "Durham",
                     Quantity = 3,
                     Price = 430.74
                 },
@@ -250,6 +253,7 @@ namespace Bangazon.Data
                     Description = "It keeps food cold",
                     Title = "Refridgerator",
                     Quantity = 40,
+                    City = "Raleigh",
                     Price = 723.22
                 },
                 new Product()
@@ -259,6 +263,7 @@ namespace Bangazon.Data
                     UserId = user.Id,
                     Description = "It does words",
                     Title = "Scrabble",
+                    City = "Watertown",
                     Quantity = 320,
                     Price = 19.99
                 },
@@ -269,6 +274,7 @@ namespace Bangazon.Data
                     UserId = user.Id,
                     Description = "It plays records",
                     Title = "Record Player",
+                    City = "Madison",
                     Quantity = 15,
                     Price = 32.42
                 },
@@ -279,6 +285,7 @@ namespace Bangazon.Data
                     UserId = user.Id,
                     Description = "It gives you health",
                     Title = "Vitamin C",
+                    City = "Clarksville",
                     Quantity = 32,
                     Price = 22.69
                 },
@@ -289,6 +296,7 @@ namespace Bangazon.Data
                     UserId = user.Id,
                     Description = "It provides shelter",
                     Title = "Tent",
+                    City = "Tent City",
                     Quantity = 12,
                     Price = 45.55
                 },
@@ -299,6 +307,7 @@ namespace Bangazon.Data
                     UserId = user.Id,
                     Description = "It moisturizes",
                     Title = "Lotion",
+                    City = "Watertown",
                     Quantity = 52,
                     Price = 7.99
                 },
@@ -319,6 +328,7 @@ namespace Bangazon.Data
                     UserId = user.Id,
                     Description = "Choo choo!",
                     Title = "Train",
+                    City = "Memphis",
                     Quantity = 1,
                     Price = 3.75
                 },
@@ -359,6 +369,7 @@ namespace Bangazon.Data
                     UserId = user.Id,
                     Description = "It puts things together",
                     Title = "Bolts",
+                    City = "Providence",
                     Quantity = 3200,
                     Price = .69
                 },

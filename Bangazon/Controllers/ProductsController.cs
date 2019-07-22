@@ -26,8 +26,9 @@ namespace Bangazon.Controllers
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // GET: Products
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString, string searchBy)
         {
+            ViewData["searchBy"] = searchBy;
             ViewData["CurrentFilter"] = searchString;
 
             var applicationDbContext = _context.Product.Where(p => p.Active == true).Include(p => p.ProductType).Include(p => p.User);
@@ -35,7 +36,23 @@ namespace Bangazon.Controllers
             //If user enters a string into the search input field in the navbar - adding a where clause to include products whose name contains string.
             if (!String.IsNullOrEmpty(searchString))
             {
-                applicationDbContext = _context.Product.Where(p => p.Active == true && p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+
+            }
+            //This switch case statement uses the searchBy parameter which is in _Layout.cs and tells us what we want to be searching through.
+            switch (searchBy)
+
+            {
+                //
+                case "1":
+                    applicationDbContext = _context.Product.Where(p => p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                    break;
+                case "2":
+                    applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                    break;
+                default:
+                    applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)||p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                    break;
             }
 
             return View(await applicationDbContext.ToListAsync());

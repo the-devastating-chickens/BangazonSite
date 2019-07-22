@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bangazon.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190719190306_SoftDeletePayments")]
-    partial class SoftDeletePayments
+    [Migration("20190722152259_productCityData")]
+    partial class productCityData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,7 +85,7 @@ namespace Bangazon.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5dfa5840-3b97-4627-8c85-5a2ed8721ae9",
+                            ConcurrencyStamp = "e91a9f15-2ea2-4825-830b-c8887bde7a59",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admina",
@@ -93,7 +93,7 @@ namespace Bangazon.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENV08WjhlRnzoO8bEdIoWo+cvUNzxRvsw2kOC9+X2x85bmBaOd/jR6VK4D8+AdoUEQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB6SBptLJhbzUCBeto589kSNiz3dHJqcsCfe3x0ZHU0rYyrzG2j33bqpoi8DY+cJbQ==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             StreetAddress = "123 Infinity Way",
@@ -380,6 +380,7 @@ namespace Bangazon.Migrations
                         {
                             ProductId = 5,
                             Active = true,
+                            City = "Nashville",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "It puts things together",
                             Price = 22.690000000000001,
@@ -392,6 +393,7 @@ namespace Bangazon.Migrations
                         {
                             ProductId = 6,
                             Active = true,
+                            City = "Northampton",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "It blends",
                             Price = 22.690000000000001,
@@ -404,6 +406,7 @@ namespace Bangazon.Migrations
                         {
                             ProductId = 7,
                             Active = true,
+                            City = "Durham",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "It is heavy and drills holes into things",
                             Price = 430.74000000000001,
@@ -416,6 +419,7 @@ namespace Bangazon.Migrations
                         {
                             ProductId = 8,
                             Active = true,
+                            City = "Raleigh",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "It keeps food cold",
                             Price = 723.22000000000003,
@@ -428,6 +432,7 @@ namespace Bangazon.Migrations
                         {
                             ProductId = 9,
                             Active = true,
+                            City = "Watertown",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "It does words",
                             Price = 19.989999999999998,
@@ -440,6 +445,7 @@ namespace Bangazon.Migrations
                         {
                             ProductId = 10,
                             Active = true,
+                            City = "Madison",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "It plays records",
                             Price = 32.420000000000002,
@@ -452,6 +458,7 @@ namespace Bangazon.Migrations
                         {
                             ProductId = 11,
                             Active = true,
+                            City = "Clarksville",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "It gives you health",
                             Price = 22.690000000000001,
@@ -464,6 +471,7 @@ namespace Bangazon.Migrations
                         {
                             ProductId = 12,
                             Active = true,
+                            City = "Tent City",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "It provides shelter",
                             Price = 45.549999999999997,
@@ -476,6 +484,7 @@ namespace Bangazon.Migrations
                         {
                             ProductId = 13,
                             Active = true,
+                            City = "Watertown",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "It moisturizes",
                             Price = 7.9900000000000002,
@@ -500,6 +509,7 @@ namespace Bangazon.Migrations
                         {
                             ProductId = 15,
                             Active = true,
+                            City = "Memphis",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Choo choo!",
                             Price = 3.75,
@@ -548,6 +558,7 @@ namespace Bangazon.Migrations
                         {
                             ProductId = 19,
                             Active = true,
+                            City = "Providence",
                             DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "It puts things together",
                             Price = 0.68999999999999995,
