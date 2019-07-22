@@ -23,7 +23,7 @@ namespace Bangazon.Controllers
             _userManager = userManager;
         }
 
-        //private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
         // Modified by Billy Mitchell. This controller pull all previous orders and current cart that are only associated with the currently logged in user.
         // GET: Orders
@@ -54,14 +54,19 @@ namespace Bangazon.Controllers
                     var currentOrderProducts = await _context.OrderProduct
                         .Where(op => op.OrderId == currentOrder.OrderId).ToListAsync();
 
+                    var currentOrderTotal = 0.0;
+
                     //get the Product for each orderProduct.
                     foreach (var item in currentOrderProducts)
                     {
                         item.Product = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == item.ProductId);
+                        currentOrderTotal += item.Product.Price;
                     }
 
                     //Add the list of orderProducts to the order.
                     currentOrder.OrderProducts = currentOrderProducts;
+                    //add total
+                    currentOrder.OrderTotal = currentOrderTotal;
 
                     return View(currentOrder);
                 } else
