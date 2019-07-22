@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Bangazon.Migrations
 {
-    public partial class SeedDataAttempt2 : Migration
+    public partial class SoftDeletePayments : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -178,7 +178,8 @@ namespace Bangazon.Migrations
                     DateCreated = table.Column<DateTime>(nullable: false, defaultValueSql: "GETDATE()"),
                     Description = table.Column<string>(maxLength: 55, nullable: false),
                     AccountNumber = table.Column<string>(maxLength: 20, nullable: false),
-                    UserId = table.Column<string>(nullable: false)
+                    UserId = table.Column<string>(nullable: false),
+                    Active = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -282,7 +283,7 @@ namespace Bangazon.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "StreetAddress", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "e1db8b16-9055-484a-9770-cac8dd7efc75", "admin@admin.com", true, "Admina", "Straytor", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAEDu5ROwXHE71x2mKmA4L5LaCWiVzUYkXpHu8sc5jQKYVWD7bCOCv8AutquUZwOxyog==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", "123 Infinity Way", false, "admin@admin.com" });
+                values: new object[] { "00000000-ffff-ffff-ffff-ffffffffffff", 0, "5dfa5840-3b97-4627-8c85-5a2ed8721ae9", "admin@admin.com", true, "Admina", "Straytor", false, null, "ADMIN@ADMIN.COM", "ADMIN@ADMIN.COM", "AQAAAAEAACcQAAAAENV08WjhlRnzoO8bEdIoWo+cvUNzxRvsw2kOC9+X2x85bmBaOd/jR6VK4D8+AdoUEQ==", null, false, "7f434309-a4d9-48e9-9ebb-8803db794577", "123 Infinity Way", false, "admin@admin.com" });
 
             migrationBuilder.InsertData(
                 table: "ProductType",
@@ -308,28 +309,28 @@ namespace Bangazon.Migrations
 
             migrationBuilder.InsertData(
                 table: "PaymentType",
-                columns: new[] { "PaymentTypeId", "AccountNumber", "Description", "UserId" },
-                values: new object[] { 1, "86753095551212", "American Express", "00000000-ffff-ffff-ffff-ffffffffffff" });
+                columns: new[] { "PaymentTypeId", "AccountNumber", "Active", "Description", "UserId" },
+                values: new object[] { 1, "86753095551212", true, "American Express", "00000000-ffff-ffff-ffff-ffffffffffff" });
 
             migrationBuilder.InsertData(
                 table: "PaymentType",
-                columns: new[] { "PaymentTypeId", "AccountNumber", "Description", "UserId" },
-                values: new object[] { 2, "4102948572991", "Discover", "00000000-ffff-ffff-ffff-ffffffffffff" });
+                columns: new[] { "PaymentTypeId", "AccountNumber", "Active", "Description", "UserId" },
+                values: new object[] { 2, "4102948572991", true, "Discover", "00000000-ffff-ffff-ffff-ffffffffffff" });
 
             migrationBuilder.InsertData(
                 table: "PaymentType",
-                columns: new[] { "PaymentTypeId", "AccountNumber", "Description", "UserId" },
-                values: new object[] { 3, "4102948571111", "Visa", "00000000-ffff-ffff-ffff-ffffffffffff" });
+                columns: new[] { "PaymentTypeId", "AccountNumber", "Active", "Description", "UserId" },
+                values: new object[] { 3, "4102948571111", true, "Visa", "00000000-ffff-ffff-ffff-ffffffffffff" });
 
             migrationBuilder.InsertData(
                 table: "PaymentType",
-                columns: new[] { "PaymentTypeId", "AccountNumber", "Description", "UserId" },
-                values: new object[] { 4, "4102948572222", "MasterCard", "00000000-ffff-ffff-ffff-ffffffffffff" });
+                columns: new[] { "PaymentTypeId", "AccountNumber", "Active", "Description", "UserId" },
+                values: new object[] { 4, "4102948572222", true, "MasterCard", "00000000-ffff-ffff-ffff-ffffffffffff" });
 
             migrationBuilder.InsertData(
                 table: "PaymentType",
-                columns: new[] { "PaymentTypeId", "AccountNumber", "Description", "UserId" },
-                values: new object[] { 5, "4102948573333", "Diners Club", "00000000-ffff-ffff-ffff-ffffffffffff" });
+                columns: new[] { "PaymentTypeId", "AccountNumber", "Active", "Description", "UserId" },
+                values: new object[] { 5, "4102948573333", true, "Diners Club", "00000000-ffff-ffff-ffff-ffffffffffff" });
 
             migrationBuilder.InsertData(
                 table: "Product",
@@ -410,6 +411,11 @@ namespace Bangazon.Migrations
                 table: "Product",
                 columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
                 values: new object[] { 8, true, null, "It keeps food cold", null, 723.22000000000003, 2, 40, "Refridgerator", "00000000-ffff-ffff-ffff-ffffffffffff" });
+
+            migrationBuilder.InsertData(
+                table: "Product",
+                columns: new[] { "ProductId", "Active", "City", "Description", "ImagePath", "Price", "ProductTypeId", "Quantity", "Title", "UserId" },
+                values: new object[] { 6, true, null, "It blends", null, 22.690000000000001, 2, 32, "Blender", "00000000-ffff-ffff-ffff-ffffffffffff" });
 
             migrationBuilder.InsertData(
                 table: "Product",
