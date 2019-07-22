@@ -55,14 +55,20 @@ namespace Bangazon.Controllers
             var orderProducts = await _context.OrderProduct
                 .Where(o => o.OrderId == id).ToListAsync();
 
+            var OrdertTotal = 0.0;
+
            //get the Product for each orderProduct.
            foreach (var item in orderProducts)
             {
                 item.Product = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == item.ProductId);
+                OrdertTotal += item.Product.Price;
             }
-
+           
             //Add the list of orderProducts to the order.
             order.OrderProducts = orderProducts;
+
+            //Adding the price of each product together.
+            order.OrderTotal = OrdertTotal;
 
             return View(order);
         }
