@@ -36,9 +36,24 @@ namespace Bangazon.Controllers
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var currentUser = await GetCurrentUserAsync();
+
+            //if no order Id is supplied, looks for the current order (no payment type), and if none is found, creates a new order.
             if (id == null)
             {
-                
+                //get a list of all orders from db.
+                List<Order> orders = await _context.Order.ToListAsync();
+                //find order that matches the user Id and has no date completed.
+                Order currentOrder = orders.Find(o => o.UserId == currentUser.Id && o.PaymentTypeId == null);
+
+                if (currentOrder != null)
+                {
+                    return View(currentOrder);
+                } else
+                {
+                    Order newOrder = new Order();
+                    return await this.Create(newOrder);
+                }
             }
 
             var order = await _context.Order
@@ -66,47 +81,35 @@ namespace Bangazon.Controllers
         }
 
         // GET: Orders/Create
-        public async Task<IActionResult> Create([Bind("DateCreated, UserId, User")] Order order)
+        public IActionResult Create()
         {
-            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            ViewData["PaymentTypeId"] = new SelectList(_context.PaymentType, "PaymentTypeId", "AccountNumber");
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+            return View();
+        }
+
+
+        // POST: Orders/Create
+        //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("OrderId,DateCreated,DateCompleted,UserId,PaymentTypeId")] Order order)
+        {
+            var currentUser = await GetCurrentUserAsync();
 
             if (ModelState.IsValid)
             {
-
                 order.DateCreated = DateTime.Now;
                 order.UserId = currentUser.Id;
-                order.User = currentUser;
-
-                _context.Add(order);
-                //add to context and save changes.
                 _context.Add(order);
                 await _context.SaveChangesAsync();
-                return View(order);
+                return RedirectToAction("Details", "Orders", new { id = order.OrderId });
             } else
             {
                 return StatusCode(422);
-
             }
-
         }
-
-        // POST: Orders/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("OrderId,DateCreated,DateCompleted,UserId,PaymentTypeId")] Order order)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(order);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["PaymentTypeId"] = new SelectList(_context.PaymentType, "PaymentTypeId", "AccountNumber", order.PaymentTypeId);
-        //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", order.UserId);
-        //    return View(order);
-        //}
 
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
