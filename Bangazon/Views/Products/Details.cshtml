@@ -1,6 +1,12 @@
 @*Modified by Anne Vick to display the Quantity Remaining for the product. Changed the model from the product model to the ProductDetailViewModel.*@
 
+@using Microsoft.AspNetCore.Identity
+
 @model Bangazon.Models.ProductViewModels.ProductDetailViewModel
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var currentUser = await UserManager.GetUserAsync(User);
+}
 
 @{
     ViewData["Title"] = "Details";
@@ -11,70 +17,82 @@
 <div>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.DateCreated)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Product.DateCreated)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.Description)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Product.Description)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.Title)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Product.Title)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.Price)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Product.Price)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.QuantityRemaining)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.QuantityRemaining)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.City)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Product.City)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.ImagePath)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Product.ImagePath)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.User.FullName)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Product.User.FullName)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Product.ProductType)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Product.ProductType.Label)
         </dd>
     </dl>
 </div>
 <div>
-    
+
 </div>
 <div>
     <form asp-controller="OrderProducts" asp-action="Create" asp-route-id="@Model.Product.ProductId">
-        <input type="submit" class="btn btn-success" value="Add To Order"/>
+        <input type="submit" class="btn btn-success" value="Add To Order" />
     </form>
-    <a asp-action="Edit" asp-route-id="@Model.Product.ProductId">Edit</a> |
-    <a asp-action="Index">Back to List of All Products</a> |
-    <a asp-action="MyIndex">Back to My List</a>
+    @if (Model.Product.UserId == currentUser.Id)
+    {
+        <div>
+            <a asp-action="Edit" asp-route-id="@Model.Product.ProductId">Edit</a> |
+            <a asp-action="Index">Back to List of All Products</a> |
+            <a asp-action="MyIndex">Back to My List</a>
+        </div>
+    }
+    else
+    {
+        <div>
+            <a asp-action="Index">Back to List of All Products</a> |
+            <a asp-action="MyIndex">Back to My List</a>
+        </div>
+    }
 </div>
