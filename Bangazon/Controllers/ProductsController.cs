@@ -39,7 +39,7 @@ namespace Bangazon.Controllers
                 switch (searchBy)
 
                 {
-               
+
                     case "1":
                         applicationDbContext = _context.Product.Where(p => p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
                         break;
@@ -77,7 +77,7 @@ namespace Bangazon.Controllers
             var enumerableViewModel = applicationDbContext.Select(p => new ProductDetailViewModel
             {
                 Product = p,
-                OrderProducts =  _context.OrderProduct.Where(op => op.ProductId == p.ProductId).ToList()
+                OrderProducts = _context.OrderProduct.Where(op => op.ProductId == p.ProductId).ToList()
             });
 
             //Now we are passing  our variable enumerableViewModel that does all that exciting stuff listed above to our view!
@@ -188,10 +188,15 @@ namespace Bangazon.Controllers
                 return NotFound();
             }
 
+            ModelState.Remove("UserId");
+            ModelState.Remove("User");
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var currentUser = await GetCurrentUserAsync();
+                    product.User = currentUser;
+                    product.UserId = currentUser.Id;
                     _context.Update(product);
                     await _context.SaveChangesAsync();
                 }
