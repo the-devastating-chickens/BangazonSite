@@ -71,7 +71,9 @@ namespace Bangazon.Models
         {
             get
             {
-                if(OrderProducts != null)
+
+                if (OrderProducts != null)
+
                 {
                     return Quantity - OrderProducts.Count;
                 }
