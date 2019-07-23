@@ -119,25 +119,31 @@ namespace Bangazon.Controllers
                 return NotFound();
             }
 
+            ModelState.Remove("User");
+            ModelState.Remove("UserId");
             if (ModelState.IsValid)
             {
-                try
                 {
-                    _context.Update(paymentType);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!PaymentTypeExists(paymentType.PaymentTypeId))
+                    try
                     {
-                        return NotFound();
+                        var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+                        paymentType.UserId = currentUser.Id;
+                        _context.Update(paymentType);
+                        await _context.SaveChangesAsync();
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!PaymentTypeExists(paymentType.PaymentTypeId))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
                     }
+                    return RedirectToAction(nameof(Index));
                 }
-                return RedirectToAction(nameof(Index));
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", paymentType.UserId);
             return View(paymentType);
