@@ -58,15 +58,20 @@
 <div>
     @if (Model.PaymentType != null)
     {
-        <div>
-            <a asp-action="Index">Back to Orders</a> |
-            <a asp-Controller="Products" asp-action="Index"> Back to Products</a>
-        </div>
+    <div>
+        <a asp-action="Index">Back to Orders</a> |
+        <a asp-Controller="Products" asp-action="Index"> Back to Products</a>
+
+    </div>
     }
     else
     {
+<div>
+    @if (@Model.OrderProducts.Count != 0) {
+        <a class="btn btn-success" asp-action="Edit" asp-route-id=@Model.OrderId>Checkout</a> <br />
+       } 
+</div>
         <div>
-            <a asp-action="Edit" asp-route-id="@Model.OrderId">Edit Order</a> |
             <a asp-action="Index">Back to Orders</a> |
             <a asp-Controller="Products" asp-action="Index">Back to Products</a> |
             <a asp-controller="Orders" asp-action="ClearCart" asp-route-id=@Model.OrderId>
