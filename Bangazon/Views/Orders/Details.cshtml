@@ -60,7 +60,9 @@
     else
     {
 <div>
-        <a class="btn btn-success" asp-action="Edit" asp-route-id=@Model.OrderId>Checkout</a> |
+    @if (@Model.OrderProducts.Count != 0) {
+        <a class="btn btn-success" asp-action="Edit" asp-route-id=@Model.OrderId>Checkout</a> <br />
+       } 
     <a asp-action="Index">Back to Orders</a> |
     <a asp-Controller="Products" asp-action="Index">Back to Products</a>
 </div>

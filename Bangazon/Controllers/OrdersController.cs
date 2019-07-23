@@ -193,17 +193,26 @@ namespace Bangazon.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,DateCreated,DateCompleted,UserId,PaymentTypeId")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,PaymentTypeId")] Order order)
         {
             if (id != order.OrderId)
             {
                 return NotFound();
             }
 
+            ModelState.Remove("DateCreated");
+            ModelState.Remove("DateCompleted");
+            ModelState.Remove("UserId");
+            ModelState.Remove("User");
+
+            var currentUser = await GetCurrentUserAsync();
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    order.UserId = currentUser.Id;
+                    order.DateCompleted = DateTime.Now;
                     _context.Update(order);
                     await _context.SaveChangesAsync();
                 }
@@ -218,7 +227,7 @@ namespace Bangazon.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = order.OrderId });
             }
             ViewData["PaymentTypeId"] = new SelectList(_context.PaymentType, "PaymentTypeId", "AccountNumber", order.PaymentTypeId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", order.UserId);
