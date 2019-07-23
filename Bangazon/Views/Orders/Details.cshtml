@@ -60,11 +60,9 @@
     else
     {
 <div>
-        <Form asp-action="Edit" asp-route-id="@Model.OrderId">
-            <input type="submit" value="Checkout" class="btn btn-success" />
-        </Form> |
-        <a asp-action="Index">Back to Orders</a> |
-        <a asp-Controller="Products" asp-action="Index">Back to Products</a>
+        <a class="btn btn-success" asp-action="Edit" asp-route-id=@Model.OrderId>Checkout</a> |
+    <a asp-action="Index">Back to Orders</a> |
+    <a asp-Controller="Products" asp-action="Index">Back to Products</a>
 </div>
     }
 
