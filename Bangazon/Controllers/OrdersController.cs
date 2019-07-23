@@ -266,6 +266,79 @@ namespace Bangazon.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> ClearCart(int? id)
+        {
+            var currentUser = await GetCurrentUserAsync();
+
+            //if no order Id is supplied, looks for the current order (no payment type), and if none is found, creates a new order.
+            if (id == null)
+            {
+                //get a list of all orders from db.
+                List<Order> orders = await _context.Order.ToListAsync();
+                //find order that matches the user Id and has no payment type associated with it.
+                Order currentOrder = orders.Find(o => o.UserId == currentUser.Id && o.PaymentTypeId == null);
+
+                //if current order is found, return it in the view.
+                if (currentOrder != null)
+                {
+                    var currentOrderProducts = await _context.OrderProduct
+                        .Where(op => op.OrderId == currentOrder.OrderId).ToListAsync();
+
+                    var currentOrderTotal = 0.0;
+
+                    //get the Product for each orderProduct.
+                    foreach (var item in currentOrderProducts)
+                    {
+                        item.Product = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == item.ProductId);
+                        currentOrderTotal += item.Product.Price;
+                    }
+
+                    //Add the list of orderProducts to the order.
+                    currentOrder.OrderProducts = currentOrderProducts;
+                    //add total
+                    currentOrder.OrderTotal = currentOrderTotal;
+
+                    return View(currentOrder);
+                }
+                else
+                {
+                    //if not found, creates a new order by calling the order create method and returning the IActionResult as its own result.
+                    Order newOrder = new Order();
+                    return await this.Create(newOrder);
+                }
+            }
+
+            var order = await _context.Order
+                .Include(o => o.PaymentType)
+                .Include(o => o.User)
+                .FirstOrDefaultAsync(m => m.OrderId == id);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var orderProducts = await _context.OrderProduct
+                .Where(o => o.OrderId == id).ToListAsync();
+
+            var OrdertTotal = 0.0;
+
+            //get the Product for each orderProduct.
+            foreach (var item in orderProducts)
+            {
+                item.Product = await _context.Product.FirstOrDefaultAsync(p => p.ProductId == item.ProductId);
+                OrdertTotal += item.Product.Price;
+            }
+
+            //Add the list of orderProducts to the order.
+            order.OrderProducts = orderProducts;
+
+            //Adding the price of each product together.
+            order.OrderTotal = OrdertTotal;
+
+            return View(order);
+        }
+
         private bool OrderExists(int id)
         {
             return _context.Order.Any(e => e.OrderId == id);
