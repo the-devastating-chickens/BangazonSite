@@ -537,12 +537,7 @@ namespace Bangazon.Data
             var markedAsDeleted = ChangeTracker.Entries().Where(x => x.State == EntityState.Deleted);
 
             // We try to run the SaveChangesAsync() method, which will still delete any entities that are marked as 'Deleted' in the database context. However, if there are any database exceptions due to constraints, it will run the code block within the catch.
-            try
-            {
-                return await base.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
+           
                 // For each entity in the markedAsDeleted variable, we check to make sure that the resource implements the IIsDeleted interface. If so, the entities model state is changed to 'Unchanged' from 'Deleted'. Then, we changed the entity's Active boolean property to false, making the new enitity state 'Modified'. After this, we run the SaveChangesAsync method which finds the 'Modified' entity, and does an Update to the database. This is used to filter out items that the user has 'Deleted', but we still want in the database.
                 foreach (var item in markedAsDeleted)
                 {
@@ -556,8 +551,9 @@ namespace Bangazon.Data
                 }
                 return await base.SaveChangesAsync();
 
-            }
-
+            
         }
+
+
     }
 }
