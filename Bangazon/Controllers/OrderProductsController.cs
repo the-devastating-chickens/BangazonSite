@@ -34,6 +34,7 @@ namespace Bangazon.Controllers
         }
 
         // GET: OrderProducts/Details/5
+        [ActionName("Details")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -200,7 +201,7 @@ namespace Bangazon.Controllers
             var orderProduct = await _context.OrderProduct.FindAsync(id);
             _context.OrderProduct.Remove(orderProduct);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Orders", new { id = orderProduct.OrderId});
         }
 
         private bool OrderProductExists(int id)

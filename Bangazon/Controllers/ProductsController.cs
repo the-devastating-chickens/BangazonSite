@@ -36,24 +36,22 @@ namespace Bangazon.Controllers
             //If user enters a string into the search input field in the navbar - adding a where clause to include products whose name contains string.
             if (!String.IsNullOrEmpty(searchString))
             {
-                applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                switch (searchBy)
 
+                {
+               
+                    case "1":
+                        applicationDbContext = _context.Product.Where(p => p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                        break;
+                    case "2":
+                        applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                        break;
+                    default:
+                        applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString) || p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
+                        break;
+                }
             }
             //This switch case statement uses the searchBy parameter which is in _Layout.cs and tells us what we want to be searching through.
-            switch (searchBy)
-
-            {
-                //
-                case "1":
-                    applicationDbContext = _context.Product.Where(p => p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
-                    break;
-                case "2":
-                    applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
-                    break;
-                default:
-                    applicationDbContext = _context.Product.Where(p => p.Title.Contains(searchString)||p.City.Contains(searchString)).Include(p => p.ProductType).Include(p => p.User);
-                    break;
-            }
 
             return View(await applicationDbContext.ToListAsync());
         }
@@ -62,8 +60,28 @@ namespace Bangazon.Controllers
         public async Task<IActionResult> MyIndex()
         {
             var currentUser = await GetCurrentUserAsync();
-            var applicationDbContext = _context.Product.Where(p => p.UserId == currentUser.Id && p.Active == true).Include(p => p.ProductType).Include(p => p.User);
-            return View(await applicationDbContext.ToListAsync());
+
+            //Here we are using _context to go through our products and grab the ones where the userId of the product and the userId of the logged in user are the same. It also grabs the ones where the product boolean isActive is set to true,
+            //which means that a user has not "deleted" the product (they still are in the database but not listed as available to purchase). 
+            var applicationDbContext = _context.Product.Where(p => p.UserId == currentUser.Id && p.Active == true)
+                //We are joining the ProductType table on to the Product table!
+                .Include(p => p.ProductType)
+                //And the User table as well! Wow!
+                .Include(p => p.User);
+
+            //Inside of this variable we are going through the applicationDbContext, which is a list of our active products
+            //specific to our logged in user. For each product in this list, we instantiate a view model for that product's details.
+            //In each instance, we are setting the product property of our view model to each product and setting the OrderProduct propety
+            //to look into our OrderProduct and grab the ones where the ProductId property on the OrderProduct matches the primary key ProductId
+            //on Product, and then converting it into a list.
+            var enumerableViewModel = applicationDbContext.Select(p => new ProductDetailViewModel
+            {
+                Product = p,
+                OrderProducts =  _context.OrderProduct.Where(op => op.ProductId == p.ProductId).ToList()
+            });
+
+            //Now we are passing  our variable enumerableViewModel that does all that exciting stuff listed above to our view!
+            return View(enumerableViewModel);
         }
 
         // GET: Products/Details/5
