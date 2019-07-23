@@ -266,6 +266,7 @@ namespace Bangazon.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // GET Method that is the same as the Details method. This creates the view that allows the user to confirm clearing their shopping cart
         public async Task<IActionResult> ClearCart(int? id)
         {
             var currentUser = await GetCurrentUserAsync();
@@ -337,6 +338,28 @@ namespace Bangazon.Controllers
             order.OrderTotal = OrdertTotal;
 
             return View(order);
+        }
+
+        // DELETE method for clearing the customers active shopping cart. This will trigger a DELETE from the ORDERPRODUCT table for all entities that have the orderId of the current order
+        public async Task<IActionResult> ClearCartConfirmed(int id)
+        {
+            // Make a list of order products with orderId = parameter id (current order / shopping cart OrderId)
+            var orderProductsToDelete = await _context.OrderProduct.Where(op => op.OrderId == id).ToListAsync();
+
+            // For each item in the list, mark the entity state as DELETED
+            foreach(var item in orderProductsToDelete)
+            {
+
+                _context.OrderProduct.Remove(item);
+            }
+
+            // Execute the delete from OrderProduct table
+
+            await _context.SaveChangesAsync();
+
+            // Redirect the user to the home page
+
+            return RedirectToAction("Index", "Home");
         }
 
         private bool OrderExists(int id)

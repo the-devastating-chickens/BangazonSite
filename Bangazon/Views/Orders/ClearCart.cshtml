@@ -40,10 +40,6 @@
 
                 <div>
                     @item.Product.Title $@item.Product.Price
-                    @*@if (item.Order.PaymentTypeId == null)
-                    {
-                        <a asp-controller="OrderProducts" asp-action="Delete" asp-route-id=@item.OrderProductId class="btn-sm btn-danger m-2">Remove from cart</a>
-                    }*@
                     <hr />
                 </div>
 
@@ -51,7 +47,7 @@
         </dd>
     </dl>
     
-    <form asp-action="ClearCart">
+    <form asp-action="ClearCartConfirmed" asp-route-id=@Model.OrderId>
         <input type="hidden" asp-for="OrderId" />
         <input type="submit" value="Confirm" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
