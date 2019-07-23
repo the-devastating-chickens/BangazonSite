@@ -55,7 +55,12 @@ namespace Bangazon.Controllers
                 //get a list of all orders from db.
                 List<Order> orders = await _context.Order.ToListAsync();
                 //find order that matches the user Id and has no payment type associated with it.
-                Order currentOrder = orders.Find(o => o.UserId == currentUser.Id && o.PaymentTypeId == null);
+                Order currentOrder = null;
+
+                if (orders != null)
+                {
+                    currentOrder = orders.Find(o => o.UserId == currentUser.Id && o.PaymentTypeId == null);
+                }
 
                 //if current order is found, return it in the view.
                 if (currentOrder != null)

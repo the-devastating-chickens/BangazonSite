@@ -51,18 +51,21 @@
 <div>
     @if (Model.PaymentType != null)
     {
-        <div>
-            <a asp-action="Index">Back to Orders</a> |
-            <a asp-Controller="Products" asp-action="Index"> Back to Products</a>
-        </div>
+    <div>
+        <a asp-action="Index">Back to Orders</a> |
+        <a asp-Controller="Products" asp-action="Index"> Back to Products</a>
+
+    </div>
     }
     else
     {
-        <div>
-            <a asp-action="Edit" asp-route-id="@Model.OrderId">Edit Order</a> |
-            <a asp-action="Index">Back to Orders</a> |
-            <a asp-Controller="Products" asp-action="Index">Back to Products</a>
-        </div>
+<div>
+        <Form asp-action="Edit" asp-route-id="@Model.OrderId">
+            <input type="submit" value="Checkout" class="btn btn-success" />
+        </Form> |
+        <a asp-action="Index">Back to Orders</a> |
+        <a asp-Controller="Products" asp-action="Index">Back to Products</a>
+</div>
     }
 
 </div>
